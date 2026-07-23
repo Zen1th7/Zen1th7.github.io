@@ -1,0 +1,18 @@
+# ─── Never publish (confidential) ─────────────────────────────
+# Client website service contract — contains client business details.
+# MUST NOT be pushed to the public GitHub Pages repo.
+網站設計開發暨年度維護服務契約書.pdf
+*contract*.pdf
+
+# ─── Superseded / not part of the live site ───────────────────
+# Old CVs, replaced by cv-andrian-wu-en.pdf / cv-andrian-wu-zh.pdf
+Andrian CV.pdf
+Andrian CV chinese.pdf
+# Design-exploration drafts
+mockup/
+
+# ─── Tooling / OS / temp ──────────────────────────────────────
+.playwright-mcp/
+.DS_Store
+Thumbs.db
+*.tmp

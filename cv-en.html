@@ -1,0 +1,190 @@
+<meta charset="utf-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Andrian Wu — CV</title>
+<style>
+  :root{
+    --ink:#141414;
+    --muted:#555;
+    --line:#d9d9d9;
+    --red:#E61919;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:#efefef; color:var(--ink); font-family:var(--font); }
+  @page{ size:A4; margin:12mm; }
+
+  /* Screen container mimics A4 */
+  .page{
+    background:#fff;
+    width:210mm;
+    min-height:297mm;
+    margin:24px auto;
+    padding:16mm 15mm;
+    box-shadow:0 6px 30px rgba(0,0,0,.14);
+  }
+
+  /* Header */
+  .head{ display:flex; justify-content:space-between; align-items:flex-start; gap:20px; border-bottom:2px solid var(--red); padding-bottom:12px; }
+  .name{ font-size:27px; font-weight:800; letter-spacing:-.01em; line-height:1.05; margin:0; }
+  .name .tri{ color:var(--red); font-size:.75em; vertical-align:.06em; margin-right:.28em; }
+  .name .zh{ font-weight:600; font-size:.62em; color:var(--muted); margin-left:.4em; letter-spacing:0; }
+  .title{ margin:6px 0 0; font-size:12.5px; color:var(--muted); font-weight:600; letter-spacing:.01em; }
+  .contact{ text-align:right; font-size:10.5px; line-height:1.7; color:var(--muted); white-space:nowrap; }
+  .contact a{ color:var(--muted); text-decoration:none; }
+  .contact .loc{ color:var(--ink); font-weight:600; }
+
+  /* Sections */
+  section{ margin-top:9px; }
+  h2{
+    font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.14em;
+    color:var(--ink); margin:0 0 5px; padding-bottom:4px;
+    border-bottom:1px solid var(--line); position:relative;
+  }
+  h2::before{ content:""; position:absolute; left:0; bottom:-1px; width:34px; height:2px; background:var(--red); }
+
+  p{ margin:0; font-size:11px; line-height:1.5; }
+  .summary{ font-size:11.5px; line-height:1.55; color:#2a2a2a; }
+
+  /* Entries */
+  .entry{ margin-bottom:8px; break-inside:avoid; page-break-inside:avoid; }
+  .entry:last-child{ margin-bottom:0; }
+  .entry__top{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .role{ font-size:12px; font-weight:700; }
+  .org{ font-size:11px; font-weight:600; color:#333; }
+  .meta{ font-size:10px; color:var(--muted); font-weight:600; white-space:nowrap; text-align:right; }
+  ul{ margin:4px 0 0; padding-left:16px; }
+  li{ font-size:10.5px; line-height:1.5; margin-bottom:2px; }
+
+  /* Skills grid */
+  .skills{ display:grid; grid-template-columns:150px 1fr; gap:4px 14px; }
+  .skills dt{ font-size:10.5px; font-weight:700; color:var(--ink); }
+  .skills dd{ margin:0; font-size:10.5px; color:#333; line-height:1.45; }
+
+  /* two-column compact area */
+  .cols{ display:grid; grid-template-columns:1fr 1fr; gap:0 26px; }
+  .proj{ margin-bottom:8px; break-inside:avoid; font-size:10.5px; line-height:1.45; }
+  .proj b{ font-size:10.5px; }
+  .proj .p-tech{ color:var(--muted); }
+  .proj p{ font-size:10px; line-height:1.45; margin-top:1px; }
+
+  .kv{ font-size:10.5px; line-height:1.55; }
+  .kv b{ font-weight:700; }
+  .inline-meta{ color:var(--muted); font-weight:600; }
+  a.plain{ color:inherit; text-decoration:none; }
+
+  @media print{
+    html,body{ background:#fff; }
+    .page{ width:auto; min-height:auto; margin:0; padding:0; box-shadow:none; }
+  }
+</style>
+
+<div class="page">
+  <header class="head">
+    <div>
+      <h1 class="name"><span class="tri">&#9651;</span>Andrian Wu<span class="zh">&#21555;&#23478;&#35946;</span></h1>
+      <p class="title">AI / Computer Vision Engineer &middot; Front-End Developer</p>
+    </div>
+    <div class="contact">
+      <div class="loc">Tainan, Taiwan</div>
+      <div><a href="mailto:andrian.wu.7@gmail.com">andrian.wu.7@gmail.com</a></div>
+      <div>(+886) 987-128-399</div>
+      <div><a href="https://linkedin.com/in/andrian-wu-16035b254">linkedin.com/in/andrian-wu-16035b254</a></div>
+      <div><a href="https://github.com/Zen1th7">github.com/Zen1th7</a> &middot; <a href="https://zen1th7.github.io">zen1th7.github.io</a></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p class="summary">AI &amp; computer-vision engineer who also builds and ships web front-ends. I turn detection, OCR, image-enhancement and 3D-reconstruction problems into deployable systems, and ship the interfaces around them. Fast learner, dependable teammate. Trilingual (English, Mandarin, Indonesian) with basic Japanese.</p>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <dl class="skills">
+      <dt>AI &amp; Machine Learning</dt><dd>PyTorch, TensorFlow, Scikit-Learn, ClearML, model training &amp; deployment</dd>
+      <dt>Computer Vision</dt><dd>MMDetection, MMPose, MMDetection3D, YOLOE, PaddleOCR, object detection, image/video enhancement, dehazing</dd>
+      <dt>3D &amp; Neural Reconstruction</dt><dd>NeRF / Nerfstudio, image-to-3D, NVIDIA Cosmos Reason</dd>
+      <dt>Front-End &amp; App</dt><dd>React, Vue, TypeScript, JavaScript, Node.js, Quasar, Capacitor, HTML/CSS</dd>
+      <dt>Programming &amp; Tools</dt><dd>Python, C, C++, Java, C#, SQL, Git, Linux, Selenium, Visual Studio</dd>
+      <dt>Game Development</dt><dd>Unity, Blender</dd>
+      <dt>Languages (spoken)</dt><dd>English, Mandarin, Indonesian, Japanese (basic)</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+
+    <div class="entry">
+      <div class="entry__top">
+        <div><span class="role">AI Engineer</span> &mdash; <span class="org">Current employer (name withheld)</span></div>
+        <div class="meta">May 2025 &ndash; Present &middot; Tainan, Taiwan</div>
+      </div>
+      <ul>
+        <li>Applied computer-vision &amp; 3D R&amp;D: evaluated and built with MMDetection, MMPose, MMDetection3D, YOLOE and PaddleOCR; image-to-3D reconstruction (Nerfstudio) and NVIDIA Cosmos Reason; ClearML for experiment tracking / MLOps.</li>
+        <li>Since Mar 2026, took over the front-end after the team's front-end engineer left &mdash; building and maintaining the company's desktop application and web front-end in React.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry__top">
+        <div><span class="role">AI Modeling Engineer</span> &mdash; <span class="org">&#23731;&#25562;&#26234;&#25511;&#32929;&#20221;&#26377;&#38480;&#20844;&#21496; (AI MachineVision Corp)</span></div>
+        <div class="meta">Aug 2024 &ndash; Apr 2025 &middot; Taichung / Taoyuan, Taiwan</div>
+      </div>
+      <ul>
+        <li>End-to-end AI modeling: data collection, labeling, model building, classification, validation and prediction; on-site client technical support.</li>
+        <li>Collaborated with Arc'teryx on their automated AI fabric-inspection system; helped optimize models to improve detection accuracy and throughput.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry__top">
+        <div><span class="role">English Teaching Assistant &amp; TOEIC Question Author</span></div>
+        <div class="meta">2023 &ndash; 2024 &middot; Kaohsiung, Taiwan</div>
+      </div>
+      <ul>
+        <li>Taught English classes and authored / reviewed TOEIC exam materials.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+    <div class="cols">
+      <div class="proj">
+        <b>Moneta</b> &mdash; Multi-currency personal-finance app (Android): local-first wallets, budgets, goals, recurring bills, on-device receipt OCR, encrypted cloud backup, trilingual UI.
+        <p><span class="p-tech">Vue 3, Quasar, Capacitor, TypeScript</span> &middot; github.com/Zen1th7/moneta</p>
+      </div>
+      <div class="proj">
+        <b>Counterfeit Money Detection</b> &mdash; YOLOv5 object detection that locates and crops banknote regions to flag counterfeits.
+        <p><span class="p-tech">Python</span> &middot; github.com/Zen1th7/counterfeit_money</p>
+      </div>
+      <div class="proj">
+        <b>Video Dehazing</b> &mdash; removes haze per video frame (dark-channel prior + guided filtering).
+        <p><span class="p-tech">OpenCV, Python</span> &middot; github.com/Zen1th7/dehazing</p>
+      </div>
+      <div class="proj">
+        <b>THSR Booking by Voice</b> &mdash; books Taiwan High-Speed Rail tickets by voice: speech recognition + Selenium automation + CAPTCHA handling.
+        <p><span class="p-tech">Python</span> &middot; github.com/Zen1th7/captcha-detection</p>
+      </div>
+      <div class="proj">
+        <b>The Hash-Slinging Slasher</b> &mdash; lantern-lit exploration horror game.
+        <p><span class="p-tech">Unity, C#</span> &middot; zenith67.itch.io/the-hash-slinging-slasher</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <p class="kv"><b>B.Sc. Computer Science</b> &mdash; National University of Kaohsiung <span class="inline-meta">&middot; Sep 2020 &ndash; Jun 2024</span></p>
+  </section>
+
+  <section>
+    <h2>Leadership</h2>
+    <p class="kv"><b>Event Organizer</b>, NUK Indonesian Students Association <span class="inline-meta">&middot; 2021 &ndash; 2022</span><br>Planned orientation, farewell, game and BBQ events; managed logistics, budget and scheduling.</p>
+  </section>
+
+  <section>
+    <h2>Credentials</h2>
+    <p class="kv">TOEIC 905 / 990 (2023) &nbsp;&middot;&nbsp; CPE (Collegiate Programming Exam), 2022</p>
+  </section>
+</div>

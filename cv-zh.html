@@ -1,0 +1,183 @@
+<meta charset="utf-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>吳家豪 — 履歷</title>
+<style>
+  :root{
+    --ink:#141414;
+    --muted:#555;
+    --line:#d9d9d9;
+    --red:#E61919;
+    --font: "PingFang TC","Microsoft JhengHei","Noto Sans TC","Heiti TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:#efefef; color:var(--ink); font-family:var(--font); }
+  @page{ size:A4; margin:12mm; }
+
+  .page{
+    background:#fff;
+    width:210mm;
+    min-height:297mm;
+    margin:24px auto;
+    padding:16mm 15mm;
+    box-shadow:0 6px 30px rgba(0,0,0,.14);
+  }
+
+  .head{ display:flex; justify-content:space-between; align-items:flex-start; gap:20px; border-bottom:2px solid var(--red); padding-bottom:12px; }
+  .name{ font-size:27px; font-weight:800; letter-spacing:.02em; line-height:1.1; margin:0; }
+  .name .tri{ color:var(--red); font-size:.72em; vertical-align:.08em; margin-right:.28em; }
+  .name .en{ font-weight:600; font-size:.5em; color:var(--muted); margin-left:.5em; letter-spacing:0; }
+  .title{ margin:7px 0 0; font-size:13px; color:var(--muted); font-weight:600; }
+  .contact{ text-align:right; font-size:10.5px; line-height:1.75; color:var(--muted); white-space:nowrap; }
+  .contact a{ color:var(--muted); text-decoration:none; }
+  .contact .loc{ color:var(--ink); font-weight:700; }
+
+  section{ margin-top:9px; }
+  h2{
+    font-size:12.5px; font-weight:800; letter-spacing:.14em;
+    color:var(--ink); margin:0 0 8px; padding-bottom:4px;
+    border-bottom:1px solid var(--line); position:relative;
+  }
+  h2::before{ content:""; position:absolute; left:0; bottom:-1px; width:34px; height:2px; background:var(--red); }
+
+  p{ margin:0; font-size:11.5px; line-height:1.6; }
+  .summary{ font-size:12px; line-height:1.55; color:#2a2a2a; }
+
+  .entry{ margin-bottom:11px; break-inside:avoid; page-break-inside:avoid; }
+  .entry:last-child{ margin-bottom:0; }
+  .entry__top{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .role{ font-size:13px; font-weight:700; }
+  .org{ font-size:11.5px; font-weight:600; color:#333; }
+  .meta{ font-size:10px; color:var(--muted); font-weight:600; white-space:nowrap; text-align:right; }
+  ul{ margin:5px 0 0; padding-left:17px; }
+  li{ font-size:11px; line-height:1.5; margin-bottom:2px; }
+
+  .skills{ display:grid; grid-template-columns:118px 1fr; gap:5px 14px; }
+  .skills dt{ font-size:11px; font-weight:700; color:var(--ink); }
+  .skills dd{ margin:0; font-size:11px; color:#333; line-height:1.55; }
+
+  .cols{ display:grid; grid-template-columns:1fr 1fr; gap:0 26px; }
+  .proj{ margin-bottom:9px; break-inside:avoid; font-size:10.5px; line-height:1.6; }
+  .proj b{ font-size:11px; }
+  .proj .p-tech{ color:var(--muted); }
+  .proj p{ font-size:10px; line-height:1.55; margin-top:1px; }
+
+  .kv{ font-size:11.5px; line-height:1.7; }
+  .kv b{ font-weight:700; }
+  .inline-meta{ color:var(--muted); font-weight:600; }
+
+  @media print{
+    html,body{ background:#fff; }
+    .page{ width:auto; min-height:auto; margin:0; padding:0; box-shadow:none; }
+  }
+</style>
+
+<div class="page">
+  <header class="head">
+    <div>
+      <h1 class="name"><span class="tri">&#9651;</span>吳家豪<span class="en">Andrian Wu</span></h1>
+      <p class="title">AI / 電腦視覺工程師 &middot; 前端工程師</p>
+    </div>
+    <div class="contact">
+      <div class="loc">台灣台南</div>
+      <div><a href="mailto:andrian.wu.7@gmail.com">andrian.wu.7@gmail.com</a></div>
+      <div>(+886) 987-128-399</div>
+      <div><a href="https://linkedin.com/in/andrian-wu-16035b254">linkedin.com/in/andrian-wu-16035b254</a></div>
+      <div><a href="https://github.com/Zen1th7">github.com/Zen1th7</a> &middot; <a href="https://zen1th7.github.io">zen1th7.github.io</a></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>專業簡介</h2>
+    <p class="summary">具備實戰經驗的 AI 與電腦視覺工程師，同時能打造並交付網頁前端。我擅長將物件偵測、OCR、影像增強與 3D 重建等問題轉化為可部署的系統，並建置環繞其上的使用者介面。學習快速、可靠的團隊夥伴。精通英文、中文、印尼文，並具備基礎日文能力。</p>
+  </section>
+
+  <section>
+    <h2>專長 / 技能</h2>
+    <dl class="skills">
+      <dt>AI 與機器學習</dt><dd>PyTorch, TensorFlow, Scikit-Learn, ClearML、模型訓練與部署</dd>
+      <dt>電腦視覺</dt><dd>MMDetection, MMPose, MMDetection3D, YOLOE, PaddleOCR、物件偵測、影像 / 影片增強、除霧</dd>
+      <dt>3D 與神經重建</dt><dd>NeRF / Nerfstudio、影像轉 3D、NVIDIA Cosmos Reason</dd>
+      <dt>前端與應用</dt><dd>React, Vue, TypeScript, JavaScript, Node.js, Quasar, Capacitor, HTML/CSS</dd>
+      <dt>程式與工具</dt><dd>Python, C, C++, Java, C#, SQL, Git, Linux, Selenium, Visual Studio</dd>
+      <dt>遊戲開發</dt><dd>Unity, Blender</dd>
+      <dt>語言（口語）</dt><dd>英文、中文、印尼文、日文（基礎）</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>工作經驗</h2>
+
+    <div class="entry">
+      <div class="entry__top">
+        <div><span class="role">AI 工程師</span> &mdash; <span class="org">目前任職公司（保密）</span></div>
+        <div class="meta">2025 年 5 月 &ndash; 至今 &middot; 台灣台南</div>
+      </div>
+      <ul>
+        <li>投入電腦視覺與 3D 研發：評估並實作 MMDetection、MMPose、MMDetection3D、YOLOE 與 PaddleOCR；以 Nerfstudio 進行影像轉 3D 重建，並運用 NVIDIA Cosmos Reason；以 ClearML 進行實驗追蹤與 MLOps。</li>
+        <li>自 2026 年 3 月起，於前端工程師離職後接手前端，以 React 打造與維護公司的桌面應用程式及網頁前端。</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry__top">
+        <div><span class="role">AI 建模工程師</span> &mdash; <span class="org">岳揚智控股份有限公司（AI MachineVision Corp）</span></div>
+        <div class="meta">2024 年 8 月 &ndash; 2025 年 4 月 &middot; 台中 / 桃園</div>
+      </div>
+      <ul>
+        <li>端到端 AI 建模：資料蒐集、標註、模型建置、分類、驗證與預測；並提供客戶現場技術支援。</li>
+        <li>與 Arc'teryx 合作其自動化 AI 布料檢測系統，協助優化模型以提升偵測準確度與吞吐量。</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry__top">
+        <div><span class="role">英語教學助理與 TOEIC 出題者</span></div>
+        <div class="meta">2023 &ndash; 2024 &middot; 台灣高雄</div>
+      </div>
+      <ul>
+        <li>教授英文課程，並編撰與審核 TOEIC 測驗教材。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>專案</h2>
+    <div class="cols">
+      <div class="proj">
+        <b>Moneta</b> &mdash; 多幣別個人理財 App（Android）：本地優先的錢包、預算、目標、定期帳單、裝置端收據 OCR、加密雲端備份與三語介面。
+        <p><span class="p-tech">Vue 3, Quasar, Capacitor, TypeScript</span> &middot; github.com/Zen1th7/moneta</p>
+      </div>
+      <div class="proj">
+        <b>Counterfeit Money Detection</b> &mdash; 以 YOLOv5 物件偵測，定位並裁切鈔券區域以標示偽鈔。
+        <p><span class="p-tech">Python</span> &middot; github.com/Zen1th7/counterfeit_money</p>
+      </div>
+      <div class="proj">
+        <b>Video Dehazing</b> &mdash; 逐幀移除影片霧氣（暗通道先驗加導引濾波）。
+        <p><span class="p-tech">OpenCV, Python</span> &middot; github.com/Zen1th7/dehazing</p>
+      </div>
+      <div class="proj">
+        <b>THSR Booking by Voice</b> &mdash; 以語音訂購台灣高鐵車票：語音辨識 + Selenium 網頁自動化 + 驗證碼處理。
+        <p><span class="p-tech">Python</span> &middot; github.com/Zen1th7/captcha-detection</p>
+      </div>
+      <div class="proj">
+        <b>The Hash-Slinging Slasher</b> &mdash; 以燈籠微光為氛圍的探索恐怖遊戲。
+        <p><span class="p-tech">Unity, C#</span> &middot; zenith67.itch.io/the-hash-slinging-slasher</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>學歷</h2>
+    <p class="kv"><b>資訊工程學系理學士</b> &mdash; 國立高雄大學 <span class="inline-meta">&middot; 2020 年 9 月 &ndash; 2024 年 6 月</span></p>
+  </section>
+
+  <section>
+    <h2>社團 / 領導</h2>
+    <p class="kv"><b>活動組長</b>，國立高雄大學印尼學生會 <span class="inline-meta">&middot; 2021 &ndash; 2022</span><br>策劃迎新、送舊、遊戲與 BBQ 等活動；管理後勤、預算與排程。</p>
+  </section>
+
+  <section>
+    <h2>其他</h2>
+    <p class="kv">TOEIC 905 / 990（2023） &nbsp;&middot;&nbsp; CPE（Collegiate Programming Exam），2022</p>
+  </section>
+</div>
