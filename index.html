@@ -1,32 +1,46 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Andrian Wu — AI / Computer Vision Engineer</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2317130D'/%3E%3Cpath d='M16 7 26 25 6 25 Z' fill='none' stroke='%23E08A3C' stroke-width='2'/%3E%3C/svg%3E">
 
-<meta name="description" content="Andrian Wu — AI &amp; computer-vision engineer and front-end developer in Tainan, Taiwan. Object detection, OCR, image enhancement, 3D reconstruction, and the web &amp; app interfaces around them.">
+<meta name="description" content="Andrian Wu — 台灣台南的 AI 與電腦視覺工程師暨前端開發者。物件偵測、OCR、影像增強、3D 重建，以及圍繞它們打造的網頁與應用程式介面。">
 <link rel="canonical" href="https://zen1th7.github.io/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zen1th7.github.io/">
-<meta property="og:title" content="Andrian Wu — AI / Computer Vision Engineer">
-<meta property="og:description" content="Andrian Wu — AI &amp; computer-vision engineer and front-end developer in Tainan, Taiwan. Object detection, OCR, image enhancement, 3D reconstruction, and the web &amp; app interfaces around them.">
+<meta property="og:title" content="Andrian Wu — AI／電腦視覺工程師">
+<meta property="og:description" content="Andrian Wu — 台灣台南的 AI 與電腦視覺工程師暨前端開發者。物件偵測、OCR、影像增強、3D 重建，以及圍繞它們打造的網頁與應用程式介面。">
 <meta property="og:image" content="https://zen1th7.github.io/images/174322.jpg">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:locale:alternate" content="en_US">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Andrian Wu — AI / Computer Vision Engineer">
-<meta name="twitter:description" content="Andrian Wu — AI &amp; computer-vision engineer and front-end developer in Tainan, Taiwan.">
+<meta name="twitter:title" content="Andrian Wu — AI／電腦視覺工程師">
+<meta name="twitter:description" content="Andrian Wu — 台灣台南的 AI 與電腦視覺工程師暨前端開發者。">
 <meta name="twitter:image" content="https://zen1th7.github.io/images/174322.jpg">
 
 <meta name="theme-color" content="#17130D">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- Note: frame-ancestors is intentionally omitted here — it is ignored in meta-delivered CSP per spec and can only be enforced via an HTTP response header (X-Frame-Options / CSP header), which GitHub Pages static hosting cannot set. Accepted platform limitation. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+
+<!-- No-FOUC language init: resolve stored preference (default Traditional Chinese) and set <html lang> before paint -->
+<script>
+(function(){
+  var lang = "zh";
+  try{
+    var stored = localStorage.getItem("lang");
+    if(stored === "en" || stored === "zh") lang = stored;
+  }catch(e){}
+  document.documentElement.lang = (lang === "en") ? "en" : "zh-TW";
+  window.__initLang = lang;
+})();
+</script>
 
 <script type="application/ld+json">
 {
@@ -214,6 +228,31 @@
   .nav-cta:hover .knob{ transform:translate(2px,-1px) scale(1.06); }
   .nav-cta:active{ transform:scale(.97); }
 
+  /* ---------- language toggle (EN / 中) ---------- */
+  .lang-toggle{
+    pointer-events:auto;
+    display:inline-flex; align-items:center; gap:5px;
+    padding:9px 13px; border-radius:999px; line-height:1;
+    background:rgba(237,227,208,0.06);
+    border:1px solid rgba(237,227,208,0.16);
+    color:rgba(237,227,208,0.7);
+    font-family:var(--ff-sans); font-size:12.5px; font-weight:600; letter-spacing:0.03em;
+    cursor:pointer;
+    transition:background .4s var(--ease), border-color .4s var(--ease), color .4s var(--ease), transform .5s var(--ease-soft);
+  }
+  .lang-toggle:hover{ background:rgba(237,227,208,0.12); border-color:rgba(237,227,208,0.3); color:var(--stage-ivory); }
+  .lang-toggle:active{ transform:scale(.96); }
+  .lang-toggle .sep{ opacity:0.4; font-weight:400; }
+  .lang-toggle [data-lang]{ transition:color .3s var(--ease); }
+  html[lang="en"] .lang-toggle [data-lang="en"],
+  html[lang="zh-TW"] .lang-toggle [data-lang="zh"]{ color:var(--accent-2); }
+  html[lang="en"] .lang-toggle [data-lang="zh"],
+  html[lang="zh-TW"] .lang-toggle [data-lang="en"]{ color:rgba(237,227,208,0.82); }
+  /* coarse pointers (touch): raise the pill to the >=44px tap-target guideline */
+  @media (pointer:coarse){ .lang-toggle{ min-height:44px; padding-block:12px; } }
+  /* menu variant — larger tap target inside the mobile overlay */
+  .lang-toggle--menu{ align-self:flex-start; margin-top:30px; padding:13px 22px; font-size:16px; }
+
   .burger{
     pointer-events:auto; display:none;
     width:46px; height:46px; border-radius:999px;
@@ -222,15 +261,20 @@
     -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px);
     position:relative; cursor:pointer;
   }
+  /* Both bars are anchored to the button's exact centre (top/left 50% +
+     translate(-50%,-50%)); the closed state pushes them apart vertically,
+     the open state removes that offset so the two strokes cross precisely
+     at the centre — a perfectly centred X. */
   .burger span{
-    position:absolute; left:14px; width:18px; height:1.6px; border-radius:2px;
+    position:absolute; left:50%; top:50%; width:18px; height:1.6px; border-radius:2px;
     background:var(--stage-ivory);
+    transform-origin:center;
     transition:transform .5s var(--ease-soft), opacity .3s var(--ease);
   }
-  .burger span:nth-child(1){ top:19px; }
-  .burger span:nth-child(2){ top:25px; }
-  body.menu-open .burger span:nth-child(1){ transform:translateY(6px) rotate(45deg); }
-  body.menu-open .burger span:nth-child(2){ transform:translateY(0) rotate(-45deg); }
+  .burger span:nth-child(1){ transform:translate(-50%,-50%) translateY(-3px); }
+  .burger span:nth-child(2){ transform:translate(-50%,-50%) translateY(3px); }
+  body.menu-open .burger span:nth-child(1){ transform:translate(-50%,-50%) rotate(45deg); }
+  body.menu-open .burger span:nth-child(2){ transform:translate(-50%,-50%) rotate(-45deg); }
 
   /* mobile overlay menu */
   .menu-overlay{
@@ -456,25 +500,11 @@
     transition:background .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease);
   }
 
-  .cap-icon{
-    width:54px; height:54px; border-radius:16px;
-    display:grid; place-items:center;
-    background:var(--ivory); border:1px solid var(--hair-soft); color:var(--accent);
-    transition:background .5s var(--ease), color .5s var(--ease), border-color .5s var(--ease), transform .6s var(--ease-soft);
-  }
-  .cap-icon svg{ width:27px; height:27px; }
-  .cap-num{ font-family:var(--ff-display); font-size:14px; color:var(--accent-deep); }
-  .cap-desc{ font-size:13.5px; color:var(--muted); margin:0 0 20px; }
+  /* (base .cap-icon/.cap-num/.cap-desc removed — every capability lives in a
+     .cap-tile whose scoped rules below fully define icon/number/description) */
 
-  /* ---------- EXPERIENCE — editorial timeline (see #experience rules below) ---------- */
+  /* ---------- EXPERIENCE — see #experience rules below ---------- */
   #experience{ background:var(--ivory); }
-  .xp-tag{
-    display:inline-flex; align-items:center; gap:8px;
-    margin-top:18px; padding:6px 14px; border-radius:999px;
-    background:var(--paper); border:1px solid var(--hair);
-    font-size:11.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-deep);
-    transition:border-color .4s var(--ease), background .4s var(--ease);
-  }
 
   /* ---------- PROJECTS ---------- */
   #projects{ background:var(--paper); }
@@ -678,113 +708,47 @@
   .cap-tile .chips{ margin-top:auto; }
   .cap-tile:hover .chip{ border-color:rgba(192,90,44,0.26); background:var(--paper); }
 
-  /* hero capability tile — Computer Vision, spanning 2×2 */
-  .cap-tile--hero{
-    grid-column:span 2; grid-row:span 2;
-    background:linear-gradient(158deg,#20180F,var(--stage));
-    border-color:rgba(237,227,208,0.12); color:var(--stage-ivory);
-    padding:34px 34px 30px;
-  }
-  .cap-tile--hero::before{ background:radial-gradient(80% 70% at 78% 20%, rgba(224,138,60,0.18), transparent 60%); opacity:1; }
-  .cap-tile--hero:hover{ border-color:rgba(224,138,60,0.36); }
-  .cap-tile--hero .cap-icon{ width:60px; height:60px; border-radius:18px;
-    background:rgba(237,227,208,0.06); border-color:rgba(237,227,208,0.16); color:var(--accent-2); }
-  .cap-tile--hero:hover .cap-icon{ background:var(--accent-2); color:#22160B; border-color:var(--accent-2); }
-  .cap-tile--hero .cap-icon svg{ width:30px; height:30px; }
-  .cap-tile--hero .cap-num{ color:var(--accent-2); }
-  .cap-hero-label{ font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:var(--accent-2); margin:22px 0 8px; }
-  .cap-tile--hero h3{ font-size:clamp(28px,3.4vw,40px); line-height:1.02; margin:0 0 12px; }
-  .cap-tile--hero .cap-desc{ color:rgba(237,227,208,0.72); font-size:15px; max-width:34ch; margin-bottom:22px; line-height:1.55; }
-  .cap-tile--hero .chip{ background:rgba(237,227,208,0.06); border-color:rgba(237,227,208,0.14); color:rgba(237,227,208,0.86); }
-  .cap-tile--hero:hover .chip{ background:rgba(237,227,208,0.1); border-color:rgba(224,138,60,0.4); }
-  .cap-hero-motif{                        /* point-cloud echo, top-right */
-    position:absolute; z-index:0; top:22px; right:26px; width:66px; height:66px;
-    color:var(--accent-2); opacity:0.5; pointer-events:none;
-    transition:transform .9s var(--ease-soft);
-  }
-  .cap-tile--hero:hover .cap-hero-motif{ transform:translateY(-3px) rotate(4deg); }
+  /* (uniform capability tiles — no hero/feature tile) */
 
-  /* ---------- EXPERIENCE : editorial timeline ---------- */
-  #experience .xp-timeline{ padding-left:0; margin-top:8px; }
-  #experience .xp-timeline::before{ display:none; }
+  /* ---------- EXPERIENCE : clean flat two-column row list ---------- */
+  #experience .xp-list{ border-top:1px solid var(--hair); margin-top:8px; }
   .xp-row{
-    position:relative; display:grid; grid-template-columns:150px 1fr; gap:40px;
-    padding:34px 0; border-top:1px solid var(--hair);
-    transition:background .55s var(--ease-soft);
+    display:grid; grid-template-columns:210px 1fr; gap:48px; align-items:baseline;
+    padding:34px 8px; border-bottom:1px solid var(--hair);
+    transition:transform .5s var(--ease-soft), background .5s var(--ease-soft);
   }
-  .xp-row:first-child{ border-top:0; }
-  .xp-row::before{                        /* copper spine segment through the marker column */
-    content:""; position:absolute; left:calc(150px - 1px); top:0; bottom:0; width:2px;
-    background:var(--hair);
+  .xp-row:hover{ transform:translateX(8px); background:linear-gradient(90deg, rgba(192,90,44,0.04), transparent 70%); }
+  .xp-date{
+    font-size:12.5px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--muted); white-space:nowrap;
   }
-  .xp-row::after{                         /* copper marker on the spine */
-    content:""; position:absolute; left:calc(150px - 6px); top:44px;
-    width:12px; height:12px; border-radius:999px;
-    background:var(--paper); border:2px solid var(--accent);
-    box-shadow:0 0 0 5px var(--ivory);
-    transition:background .5s var(--ease), transform .5s var(--ease-soft), box-shadow .5s var(--ease);
-    z-index:2;
+  .xp-main h3{
+    font-family:var(--ff-display); font-weight:400; font-size:clamp(22px,2.7vw,29px);
+    margin:0; letter-spacing:-0.012em; line-height:1.12;
   }
-  .xp-row:hover::after{ background:var(--accent); transform:scale(1.25); }
-  .xp-row.is-current::after{ background:var(--accent); box-shadow:0 0 0 5px var(--ivory), 0 0 0 9px rgba(192,90,44,0.18); }
-  .xp-meta{ text-align:right; padding-right:34px; }
-  .xp-year{ font-family:var(--ff-display); font-size:clamp(30px,3.6vw,42px); line-height:1; color:var(--ink); letter-spacing:-0.01em; }
-  .xp-range{ display:block; margin-top:8px; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); }
-  .xp-now{ display:inline-block; margin-top:10px; padding:4px 11px; border-radius:999px;
-    font-size:10px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase;
-    color:var(--accent-deep); background:rgba(192,90,44,0.09); border:1px solid rgba(192,90,44,0.28); }
-  .xp-main{ padding-left:6px; transition:transform .55s var(--ease-soft); }
-  .xp-row:hover .xp-main{ transform:translateX(8px); }
-  .xp-index{ font-family:var(--ff-display); font-size:13px; color:var(--accent-deep); }
-  .xp-main h3{ font-family:var(--ff-display); font-weight:400; font-size:clamp(23px,2.9vw,31px);
-    margin:6px 0 0; letter-spacing:-0.012em; line-height:1.08; }
-  .xp-main p{ color:var(--ink-soft); margin:14px 0 0; max-width:60ch; }
-  .xp-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .xp-main p{ color:var(--ink-soft); margin:12px 0 0; max-width:62ch; font-size:15px; }
   .xp-tag{
-    display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px;
+    display:inline-flex; align-items:center; margin-top:16px; padding:6px 14px; border-radius:999px;
     background:var(--paper); border:1px solid var(--hair);
-    font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:var(--accent-deep);
+    font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent-deep);
     transition:border-color .4s var(--ease), background .4s var(--ease);
   }
   .xp-row:hover .xp-tag{ border-color:rgba(192,90,44,0.3); }
-  /* Arc'teryx collaboration — given visual weight */
-  .xp-row--feature .xp-main{
-    position:relative; padding:26px 28px; margin-left:-8px; border-radius:20px;
-    background:linear-gradient(120deg, rgba(192,90,44,0.07), rgba(224,138,60,0.02) 70%);
-    border:1px solid rgba(192,90,44,0.18);
-  }
-  .xp-row--feature:hover .xp-main{ transform:translateX(8px); border-color:rgba(192,90,44,0.34); }
-  .xp-feature-flag{
-    display:inline-flex; align-items:center; gap:8px; margin-bottom:2px;
-    font-size:10.5px; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent);
-  }
-  .xp-feature-flag svg{ width:13px; height:13px; }
 
-  /* Tablet band (721–960): keep the 3-col bento but let tiles size to content
-     so the 2-row hero tile doesn't stretch and leave an airy void. */
-  @media (max-width:960px){
-    .cap-bento{ grid-auto-rows:auto; }
-    .cap-tile--hero{ grid-row:span 1; }
+  /* Tablet band: uniform tiles collapse 3-col → 2-col */
+  @media (max-width:860px){
+    .cap-bento{ grid-template-columns:repeat(2,1fr); }
   }
 
   @media (max-width:720px){
     .about-lead .hl{ white-space:normal; }
     .portrait-cred{ right:8px; top:auto; bottom:64px; }
-    /* tiles size to content instead of stretching to the tallest sibling (no airy gaps) */
-    .cap-bento{ grid-template-columns:1fr 1fr; grid-auto-rows:auto; }
-    .cap-tile--hero{ grid-column:span 2; grid-row:span 1; }
-    .xp-row{ grid-template-columns:1fr; gap:6px; padding:26px 0 26px 22px; }
-    .xp-row::before{ left:0; }
-    .xp-row::after{ left:-6px; top:30px; }
-    .xp-meta{ text-align:left; padding-right:0; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
-    .xp-year{ font-size:26px; }
-    .xp-range{ margin-top:0; }
-    .xp-row:hover .xp-main{ transform:none; }
-    .xp-row--feature .xp-main{ margin-left:0; }
+    /* experience: stack date above the role, keep the flat hairline rhythm */
+    .xp-row{ grid-template-columns:1fr; gap:6px; padding:26px 4px; }
+    .xp-date{ white-space:normal; }
   }
-  @media (max-width:480px){
+  @media (max-width:520px){
     .cap-bento{ grid-template-columns:1fr; }
-    .cap-tile--hero{ grid-column:span 1; }
   }
 
   /* ---------- responsive ---------- */
@@ -834,36 +798,42 @@
 
 <div class="grain" aria-hidden="true"></div>
 
-<a class="skip-link" href="#top">Skip to content</a>
+<a class="skip-link" href="#top" data-i18n="skip">跳到主要內容</a>
 
 <!-- ================= NAV ================= -->
 <header class="nav">
   <nav class="nav-pill" aria-label="Primary">
     <a class="brand" href="#top" aria-label="Andrian Wu"><span class="tri" aria-hidden="true">&#9651;</span>ndrian&nbsp;Wu</a>
     <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Work</a>
-      <a href="#contact">Contact</a>
+      <a href="#about" data-i18n="nav.about">關於</a>
+      <a href="#experience" data-i18n="nav.experience">經歷</a>
+      <a href="#projects" data-i18n="nav.work">作品</a>
+      <a href="#contact" data-i18n="nav.contact">聯絡</a>
     </div>
-    <a class="nav-cta" href="cv-andrian-wu-en.pdf" download>
-      Download CV
+    <button class="lang-toggle" data-lang-toggle type="button" aria-label="切換語言 / Switch language">
+      <span data-lang="en">EN</span><span class="sep" aria-hidden="true">/</span><span data-lang="zh" lang="zh">中</span>
+    </button>
+    <a class="nav-cta" href="cv-andrian-wu-en.pdf" download data-i18n-aria="nav.cvAria" aria-label="下載履歷（英文 PDF）">
+      <span data-i18n="nav.cv">下載履歷</span>
       <span class="knob" aria-hidden="true">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 20h14"/></svg>
       </span>
     </a>
   </nav>
-  <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+  <button class="burger" aria-label="開啟選單" aria-expanded="false" aria-controls="menu">
     <span></span><span></span>
   </button>
 </header>
 
 <nav class="menu-overlay" id="menu" aria-label="Mobile" aria-hidden="true">
-  <a href="#about"><span class="idx">01</span>About</a>
-  <a href="#experience"><span class="idx">02</span>Experience</a>
-  <a href="#projects"><span class="idx">03</span>Work</a>
-  <a href="#contact"><span class="idx">04</span>Contact</a>
-  <a href="cv-andrian-wu-en.pdf" download><span class="idx">05</span>Download CV</a>
+  <a href="#about"><span class="idx">01</span><span data-i18n="nav.about">關於</span></a>
+  <a href="#experience"><span class="idx">02</span><span data-i18n="nav.experience">經歷</span></a>
+  <a href="#projects"><span class="idx">03</span><span data-i18n="nav.work">作品</span></a>
+  <a href="#contact"><span class="idx">04</span><span data-i18n="nav.contact">聯絡</span></a>
+  <a href="cv-andrian-wu-en.pdf" download><span class="idx">05</span><span data-i18n="nav.cv">下載履歷</span></a>
+  <button class="lang-toggle lang-toggle--menu" data-lang-toggle type="button" aria-label="切換語言 / Switch language">
+    <span data-lang="en">EN</span><span class="sep" aria-hidden="true">/</span><span data-lang="zh" lang="zh">中</span>
+  </button>
 </nav>
 
 <main id="top" tabindex="-1">
@@ -874,27 +844,26 @@
     <div class="hero-glow" aria-hidden="true"></div>
     <div class="hero-content">
       <div class="wrap">
-        <span class="eyebrow on-dark hero-eyebrow">Tainan, Taiwan &middot; Available 2026</span>
+        <span class="eyebrow on-dark hero-eyebrow" data-i18n="hero.eyebrow">台灣台南 &middot; 2026 可上工</span>
         <h1>
-          <span class="line-mask"><span>AI / Computer</span></span>
-          <span class="line-mask"><span><em>Vision</em> Engineer</span></span>
-          <span class="line-mask"><span>who ships the web.</span></span>
+          <span class="line-mask"><span data-i18n-html="hero.h1a">AI／電腦</span></span>
+          <span class="line-mask"><span data-i18n-html="hero.h1b"><em>視覺</em>工程師</span></span>
+          <span class="line-mask"><span data-i18n-html="hero.h1c">也親手打造網頁。</span></span>
         </h1>
-        <p class="hero-sub">
-          I build machines that <strong>see &amp; reconstruct</strong> &mdash; detection, OCR,
-          image-enhancement and 3D &mdash; and I design and ship the
-          <strong>web front-ends</strong> that put them in people&rsquo;s hands.
+        <p class="hero-sub" data-i18n-html="hero.sub">
+          我打造能<strong>觀看與重建</strong>的機器&mdash;&mdash;物件偵測、OCR、影像增強與 3D
+          &mdash;&mdash;並設計、打造把它們交到人們手中的<strong>網頁前端</strong>。
         </p>
         <div class="hero-foot">
           <div class="hero-actions">
             <a class="btn btn-primary" href="#projects">
-              View selected work
+              <span data-i18n="hero.viewWork">瀏覽精選作品</span>
               <span class="knob" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></svg>
               </span>
             </a>
             <a class="btn btn-ghost" href="#contact">
-              Get in touch
+              <span data-i18n="hero.getInTouch">與我聯絡</span>
               <span class="knob" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7m0 0H9m8 0v8"/></svg>
               </span>
@@ -902,7 +871,7 @@
           </div>
           <p class="hero-caption">
             <span class="live-dot" aria-hidden="true"></span>
-            Live point-cloud &mdash; move your cursor to focus the reconstruction
+            <span data-i18n="hero.caption">即時點雲&mdash;&mdash;移動游標以聚焦重建</span>
           </p>
         </div>
       </div>
@@ -918,25 +887,24 @@
     <div class="wrap">
       <div class="about-grid">
         <div class="reveal">
-          <h2 class="sr-only">About</h2>
-          <span class="eyebrow" aria-hidden="true">About</span>
+          <h2 class="sr-only" data-i18n="about.h2">關於</h2>
+          <span class="eyebrow" aria-hidden="true" data-i18n="about.eyebrow">關於</span>
           <span class="about-kicker" aria-hidden="true"></span>
-          <p class="about-lead d1">
-            I build machines that <span class="hl"><em>see</em></span> &mdash; then I build the
-            web where people <span class="hl"><em>use</em></span> them.
+          <p class="about-lead d1" data-i18n-html="about.lead">
+            我打造能<span class="hl"><em>觀看</em></span>的機器&mdash;&mdash;再打造讓人們
+            <span class="hl"><em>使用</em></span>它們的網頁。
           </p>
-          <p class="about-body d2">
-            I&rsquo;m <strong>Andrian Wu</strong>, an AI &amp; computer-vision engineer who turns
-            detection, OCR, image-enhancement and 3D-reconstruction problems into deployable
-            systems &mdash; most recently <strong>Moneta</strong>, a multi-currency finance app.
-            My work runs from research and modeling through to the interface a person actually touches.
+          <p class="about-body d2" data-i18n-html="about.body1">
+            我是 <strong>Andrian Wu</strong>，一位 AI 與電腦視覺工程師，將物件偵測、OCR、
+            影像增強與 3D 重建問題轉化為可部署的系統&mdash;&mdash;最近的作品是
+            <strong>Moneta</strong>，一款多幣別理財應用程式。
+            我的工作橫跨研究、建模，一路到使用者真正接觸的介面。
           </p>
-          <p class="about-body d3">
-            Trilingual with basic Japanese, based in Tainan, and equally at home in a training
-            loop or a component tree.
+          <p class="about-body d3" data-i18n="about.body2">
+            通曉三種語言並具備基礎日語，定居台南，在訓練迴圈與元件樹裡同樣自在。
           </p>
           <p class="about-sig d3">
-            <span>Research &rarr; Production</span>
+            <span data-i18n="about.sig">研究 &rarr; 產品上線</span>
             <span class="rule" aria-hidden="true"></span>
             <b>△ndrian</b>
           </p>
@@ -953,12 +921,12 @@
               </svg>
             </span>
             <div class="portrait-cred" aria-hidden="true">
-              <b>CV</b><span>+ Front-End</span>
+              <b>CV</b><span data-i18n="about.cred">+ 前端</span>
             </div>
             <div class="portrait-shell">
               <div class="portrait-core">
                 <div class="portrait-media" data-parallax-img>
-                  <img src="images/174322.jpg" alt="Portrait of Andrian Wu" width="600" height="600" loading="lazy" decoding="async">
+                  <img src="images/174322.jpg" alt="Andrian Wu 的肖像" data-i18n-alt="about.portraitAlt" width="600" height="600" loading="lazy" decoding="async">
                 </div>
                 <span class="portrait-tag"><span class="live-dot" aria-hidden="true"></span>Andrian &middot; △ndrian</span>
               </div>
@@ -968,31 +936,40 @@
       </div>
 
       <dl class="facts reveal d2">
-        <div data-i="01"><dt>Focus</dt><dd>AI &middot; CV &middot; Front-End</dd></div>
-        <div data-i="02"><dt>Location</dt><dd>Tainan, Taiwan</dd></div>
-        <div data-i="03"><dt>Languages</dt><dd>EN &middot; <span lang="zh">中文</span> &middot; <span lang="ja">日本語</span></dd></div>
-        <div data-i="04"><dt>Status</dt><dd>Open to roles</dd></div>
+        <div data-i="01"><dt data-i18n="facts.focus.dt">專長</dt><dd data-i18n="facts.focus.dd">AI &middot; 電腦視覺 &middot; 前端</dd></div>
+        <div data-i="02"><dt data-i18n="facts.loc.dt">所在地</dt><dd data-i18n="facts.loc.dd">台灣台南</dd></div>
+        <div data-i="03"><dt data-i18n="facts.lang.dt">語言</dt><dd data-i18n-html="facts.lang.dd">英文 &middot; <span lang="zh">中文</span> &middot; <span lang="ja">日本語</span></dd></div>
+        <div data-i="04"><dt data-i18n="facts.status.dt">狀態</dt><dd data-i18n="facts.status.dd">正在尋找機會</dd></div>
       </dl>
 
       <!-- SKILLS -->
       <div class="skills">
         <div class="section-head reveal">
-          <span class="eyebrow">Capabilities</span>
-          <h2>A full stack, from tensors to typography.</h2>
+          <span class="eyebrow" data-i18n="cap.eyebrow">專業能力</span>
+          <h2 data-i18n="cap.h2">全端能力，從張量到字體排版。</h2>
         </div>
         <div class="cap-bento">
 
-          <!-- HERO CAPABILITY : Computer Vision -->
-          <article class="cap-tile cap-tile--hero reveal">
-            <span class="cap-hero-motif" aria-hidden="true">
-              <svg viewBox="0 0 58 58" fill="currentColor">
-                <circle cx="29" cy="6" r="1.9"/>
-                <circle cx="16" cy="20" r="1.6"/><circle cx="42" cy="20" r="1.6"/><circle cx="29" cy="22" r="1.2"/>
-                <circle cx="8" cy="38" r="1.6"/><circle cx="29" cy="40" r="1.9"/><circle cx="50" cy="38" r="1.6"/>
-                <circle cx="19" cy="40" r="1.2"/><circle cx="39" cy="40" r="1.2"/>
-                <circle cx="14" cy="52" r="1.3"/><circle cx="44" cy="52" r="1.3"/>
-              </svg>
-            </span>
+          <!-- 01 · AI & Machine Learning -->
+          <article class="cap-tile reveal">
+            <div class="cap-tile-top">
+              <span class="cap-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="5" cy="6" r="1.7"/><circle cx="5" cy="18" r="1.7"/>
+                  <circle cx="12" cy="12" r="1.9"/>
+                  <circle cx="19" cy="6" r="1.7"/><circle cx="19" cy="18" r="1.7"/>
+                  <path d="M6.6 6.9 10.4 11M6.6 17.1 10.4 13M17.4 6.9 13.6 11M17.4 17.1 13.6 13"/>
+                </svg>
+              </span>
+              <span class="cap-num">01</span>
+            </div>
+            <h3 data-i18n="cap.ai.h3">AI 與機器學習</h3>
+            <p class="cap-desc" data-i18n="cap.ai.desc">訓練、評估與 MLOps</p>
+            <div class="chips"><span class="chip">PyTorch</span><span class="chip">TensorFlow</span><span class="chip">ClearML</span></div>
+          </article>
+
+          <!-- 02 · Computer Vision -->
+          <article class="cap-tile reveal d1">
             <div class="cap-tile-top">
               <span class="cap-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -1006,46 +983,13 @@
               </span>
               <span class="cap-num">02</span>
             </div>
-            <p class="cap-hero-label">Core discipline</p>
-            <h3>Computer Vision</h3>
-            <p class="cap-desc">Detection, pose, OCR &amp; scene analysis &mdash; the models that let a machine read and understand what it sees, taken from dataset to deployed inference.</p>
+            <h3 data-i18n="cap.cv.h3">電腦視覺</h3>
+            <p class="cap-desc" data-i18n="cap.cv.desc">偵測、姿態、OCR 與場景分析</p>
             <div class="chips"><span class="chip">MMDetection</span><span class="chip">MMPose</span><span class="chip">MMDetection3D</span><span class="chip">YOLOE</span><span class="chip">PaddleOCR</span></div>
           </article>
 
-          <article class="cap-tile reveal d1">
-            <div class="cap-tile-top">
-              <span class="cap-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="5" cy="6" r="1.7"/><circle cx="5" cy="18" r="1.7"/>
-                  <circle cx="12" cy="12" r="1.9"/>
-                  <circle cx="19" cy="6" r="1.7"/><circle cx="19" cy="18" r="1.7"/>
-                  <path d="M6.6 6.9 10.4 11M6.6 17.1 10.4 13M17.4 6.9 13.6 11M17.4 17.1 13.6 13"/>
-                </svg>
-              </span>
-              <span class="cap-num">01</span>
-            </div>
-            <h3>AI &amp; Machine Learning</h3>
-            <p class="cap-desc">Training, evaluation &amp; MLOps</p>
-            <div class="chips"><span class="chip">PyTorch</span><span class="chip">TensorFlow</span><span class="chip">ClearML</span></div>
-          </article>
-
+          <!-- 03 · Front-End & App -->
           <article class="cap-tile reveal d2">
-            <div class="cap-tile-top">
-              <span class="cap-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 2.6 20.5 7.3v9.4L12 21.4 3.5 16.7V7.3L12 2.6Z"/>
-                  <path d="M3.5 7.3 12 12l8.5-4.7"/>
-                  <path d="M12 12v9.4"/>
-                </svg>
-              </span>
-              <span class="cap-num">03</span>
-            </div>
-            <h3>3D &amp; Neural Reconstruction</h3>
-            <p class="cap-desc">Reconstruction &amp; neural rendering</p>
-            <div class="chips"><span class="chip">NeRF / Nerfstudio</span><span class="chip">Image-to-3D</span><span class="chip">NVIDIA Cosmos Reason</span></div>
-          </article>
-
-          <article class="cap-tile reveal d1">
             <div class="cap-tile-top">
               <span class="cap-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -1054,14 +998,32 @@
                   <circle cx="6.2" cy="7" r="0.5"/><circle cx="8" cy="7" r="0.5"/>
                 </svg>
               </span>
-              <span class="cap-num">04</span>
+              <span class="cap-num">03</span>
             </div>
-            <h3>Front-End &amp; App</h3>
-            <p class="cap-desc">Interfaces, apps &amp; delivery</p>
+            <h3 data-i18n="cap.fe.h3">前端與應用程式</h3>
+            <p class="cap-desc" data-i18n="cap.fe.desc">介面、應用程式與交付</p>
             <div class="chips"><span class="chip">React</span><span class="chip">Vue</span><span class="chip">TypeScript</span><span class="chip">Node</span></div>
           </article>
 
-          <article class="cap-tile reveal d2">
+          <!-- 04 · 3D & Neural Reconstruction -->
+          <article class="cap-tile reveal">
+            <div class="cap-tile-top">
+              <span class="cap-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2.6 20.5 7.3v9.4L12 21.4 3.5 16.7V7.3L12 2.6Z"/>
+                  <path d="M3.5 7.3 12 12l8.5-4.7"/>
+                  <path d="M12 12v9.4"/>
+                </svg>
+              </span>
+              <span class="cap-num">04</span>
+            </div>
+            <h3 data-i18n="cap.td.h3">3D 與神經重建</h3>
+            <p class="cap-desc" data-i18n="cap.td.desc">三維重建與神經渲染</p>
+            <div class="chips"><span class="chip">NeRF / Nerfstudio</span><span class="chip">Image-to-3D</span><span class="chip">NVIDIA Cosmos Reason</span></div>
+          </article>
+
+          <!-- 05 · Programming -->
+          <article class="cap-tile reveal d1">
             <div class="cap-tile-top">
               <span class="cap-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -1070,12 +1032,13 @@
               </span>
               <span class="cap-num">05</span>
             </div>
-            <h3>Programming</h3>
-            <p class="cap-desc">Systems across languages</p>
+            <h3 data-i18n="cap.prog.h3">程式設計</h3>
+            <p class="cap-desc" data-i18n="cap.prog.desc">跨語言的系統開發</p>
             <div class="chips"><span class="chip">Python</span><span class="chip">C / C++</span><span class="chip">Java</span><span class="chip">C#</span></div>
           </article>
 
-          <article class="cap-tile reveal d3">
+          <!-- 06 · Game & 3D Tools -->
+          <article class="cap-tile reveal d2">
             <div class="cap-tile-top">
               <span class="cap-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
@@ -1086,8 +1049,8 @@
               </span>
               <span class="cap-num">06</span>
             </div>
-            <h3>Game &amp; 3D Tools</h3>
-            <p class="cap-desc">Interactive &amp; 3D content</p>
+            <h3 data-i18n="cap.game.h3">遊戲與 3D 工具</h3>
+            <p class="cap-desc" data-i18n="cap.game.desc">互動與 3D 內容</p>
             <div class="chips"><span class="chip">Unity</span><span class="chip">Blender</span></div>
           </article>
 
@@ -1100,63 +1063,35 @@
   <section id="experience" class="section-pad">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow">Experience</span>
-        <h2>Research that reaches production.</h2>
+        <span class="eyebrow" data-i18n="xp.eyebrow">工作經驗</span>
+        <h2 data-i18n="xp.h2">從研究到產品上線。</h2>
       </div>
-      <div class="xp-timeline">
+      <div class="xp-list">
 
-        <article class="xp-row is-current reveal">
-          <div class="xp-meta">
-            <div class="xp-year">2025</div>
-            <span class="xp-range">May &mdash; Present</span>
-            <span class="xp-now">Now</span>
-          </div>
+        <article class="xp-row reveal">
+          <div class="xp-date" data-i18n="xp.role1.date">2025 / 05 &mdash; 至今</div>
           <div class="xp-main">
-            <span class="xp-index">01</span>
-            <h3>AI Engineer</h3>
-            <p>Computer-vision &amp; 3D reconstruction R&amp;D, paired with the React front-ends
-               that turn those models into usable products.</p>
-            <div class="xp-tags">
-              <span class="xp-tag">Computer Vision</span>
-              <span class="xp-tag">3D</span>
-              <span class="xp-tag">React</span>
-            </div>
+            <h3 data-i18n="xp.role1.title">AI 工程師</h3>
+            <p data-i18n="xp.role1.desc">電腦視覺與 3D 重建研發，並搭配 React 前端，把這些模型變成可用的產品。</p>
+            <span class="xp-tag" data-i18n="xp.role1.tag">電腦視覺</span>
           </div>
         </article>
 
-        <article class="xp-row xp-row--feature reveal d1">
-          <div class="xp-meta">
-            <div class="xp-year">2024</div>
-            <span class="xp-range">Aug &mdash; 2025 / 04</span>
-          </div>
+        <article class="xp-row reveal d1">
+          <div class="xp-date" data-i18n="xp.role2.date">2024 / 08 &mdash; 2025 / 04</div>
           <div class="xp-main">
-            <span class="xp-feature-flag">
-              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 2.9 6.3L22 9.2l-5 4.9 1.2 7L12 17.8 5.8 21l1.2-7-5-4.9 7.1-.9z"/></svg>
-              Featured collaboration &middot; Arc&rsquo;teryx
-            </span>
-            <span class="xp-index">02</span>
-            <h3>AI Modeling Engineer</h3>
-            <p>End-to-end AI modeling, including an <strong>Arc&rsquo;teryx</strong> AI fabric-inspection
-               collaboration &mdash; from dataset to deployed model.</p>
-            <div class="xp-tags">
-              <span class="xp-tag">Modeling</span>
-              <span class="xp-tag">Fabric Inspection</span>
-            </div>
+            <h3 data-i18n="xp.role2.title">AI 建模工程師</h3>
+            <p data-i18n-html="xp.role2.desc">端到端的 AI 建模，包含與 <strong>Arc&rsquo;teryx</strong> 合作的 AI 布料瑕疵檢測專案&mdash;&mdash;從資料集到部署模型。</p>
+            <span class="xp-tag" data-i18n="xp.role2.tag">建模</span>
           </div>
         </article>
 
         <article class="xp-row reveal d2">
-          <div class="xp-meta">
-            <div class="xp-year">2023</div>
-            <span class="xp-range">2023 &mdash; 2024</span>
-          </div>
+          <div class="xp-date" data-i18n="xp.role3.date">2023 &mdash; 2024</div>
           <div class="xp-main">
-            <span class="xp-index">03</span>
-            <h3>English Teaching Assistant &amp; TOEIC Author</h3>
-            <p>Authored TOEIC materials and supported English instruction.</p>
-            <div class="xp-tags">
-              <span class="xp-tag">Language</span>
-            </div>
+            <h3 data-i18n="xp.role3.title">英語教學助理與 TOEIC 教材編寫</h3>
+            <p data-i18n="xp.role3.desc">編寫 TOEIC 教材並協助英語教學。</p>
+            <span class="xp-tag" data-i18n="xp.role3.tag">語言</span>
           </div>
         </article>
 
@@ -1168,16 +1103,16 @@
   <section id="projects" class="section-pad">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow">Selected Work</span>
-        <h2>Five things I built &amp; shipped.</h2>
-        <p>Vision models, a production finance app, image restoration, voice automation, and a game &mdash; each taken from idea to something you can run.</p>
+        <span class="eyebrow" data-i18n="proj.eyebrow">精選作品</span>
+        <h2 data-i18n="proj.h2">五件我打造並上線的作品。</h2>
+        <p data-i18n="proj.p">視覺模型、一款上線的理財應用程式、影像修復、語音自動化，以及一款遊戲&mdash;&mdash;每一項都從構想做到可實際執行。</p>
       </div>
       <div class="proj-list">
 
         <a class="proj reveal" href="https://github.com/Zen1th7/counterfeit_money" target="_blank" rel="noopener noreferrer">
           <span class="proj-idx">01</span>
-          <h3 class="proj-title">Counterfeit Money Detection<span class="kind">Computer Vision &middot; YOLOv5</span></h3>
-          <p class="proj-desc">Object-detection model trained to flag counterfeit banknotes from imagery.</p>
+          <h3 class="proj-title">Counterfeit Money Detection<span class="kind" data-i18n="proj.p1.kind">電腦視覺 &middot; YOLOv5</span></h3>
+          <p class="proj-desc" data-i18n="proj.p1.desc">訓練物件偵測模型，從影像中辨識出偽鈔。</p>
           <span class="proj-link"><span>GitHub</span>
             <span class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7m0 0H9m8 0v8"/></svg></span>
           </span>
@@ -1185,8 +1120,8 @@
 
         <a class="proj reveal" href="https://github.com/Zen1th7/moneta" target="_blank" rel="noopener noreferrer">
           <span class="proj-idx">02</span>
-          <h3 class="proj-title">Moneta<span class="kind">Vue3 &middot; Quasar &middot; Capacitor</span></h3>
-          <p class="proj-desc">A shipped multi-currency personal-finance app, from data model to native shell.</p>
+          <h3 class="proj-title">Moneta<span class="kind" data-i18n="proj.p2.kind">Vue3 &middot; Quasar &middot; Capacitor</span></h3>
+          <p class="proj-desc" data-i18n="proj.p2.desc">已上線的多幣別個人理財應用程式，從資料模型到原生外殼。</p>
           <span class="proj-link"><span>GitHub</span>
             <span class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7m0 0H9m8 0v8"/></svg></span>
           </span>
@@ -1194,8 +1129,8 @@
 
         <a class="proj reveal" href="https://github.com/Zen1th7/dehazing" target="_blank" rel="noopener noreferrer">
           <span class="proj-idx">03</span>
-          <h3 class="proj-title">Video Dehazing<span class="kind">Image Enhancement &middot; OpenCV</span></h3>
-          <p class="proj-desc">Real-time haze removal that restores contrast and clarity across video frames.</p>
+          <h3 class="proj-title">Video Dehazing<span class="kind" data-i18n="proj.p3.kind">影像增強 &middot; OpenCV</span></h3>
+          <p class="proj-desc" data-i18n="proj.p3.desc">即時去霧，還原影片各幀的對比與清晰度。</p>
           <span class="proj-link"><span>GitHub</span>
             <span class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7m0 0H9m8 0v8"/></svg></span>
           </span>
@@ -1203,8 +1138,8 @@
 
         <a class="proj reveal" href="https://github.com/Zen1th7/captcha-detection" target="_blank" rel="noopener noreferrer">
           <span class="proj-idx">04</span>
-          <h3 class="proj-title">THSR Booking by Voice<span class="kind">Speech + Selenium</span></h3>
-          <p class="proj-desc">Books high-speed-rail tickets by voice, solving the captcha step end-to-end.</p>
+          <h3 class="proj-title">THSR Booking by Voice<span class="kind" data-i18n="proj.p4.kind">語音辨識 + Selenium</span></h3>
+          <p class="proj-desc" data-i18n="proj.p4.desc">以語音預訂高鐵車票，並端到端解決驗證碼步驟。</p>
           <span class="proj-link"><span>GitHub</span>
             <span class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7m0 0H9m8 0v8"/></svg></span>
           </span>
@@ -1212,8 +1147,8 @@
 
         <a class="proj reveal" href="https://zenith67.itch.io/the-hash-slinging-slasher" target="_blank" rel="noopener noreferrer">
           <span class="proj-idx">05</span>
-          <h3 class="proj-title">The Hash-Slinging Slasher<span class="kind">Unity &middot; Horror Game</span></h3>
-          <p class="proj-desc">A self-built Unity horror game, published and playable on itch.io.</p>
+          <h3 class="proj-title">The Hash-Slinging Slasher<span class="kind" data-i18n="proj.p5.kind">Unity &middot; 恐怖遊戲</span></h3>
+          <p class="proj-desc" data-i18n="proj.p5.desc">自製的 Unity 恐怖遊戲，已發佈並可於 itch.io 遊玩。</p>
           <span class="proj-link"><span>itch.io</span>
             <span class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7m0 0H9m8 0v8"/></svg></span>
           </span>
@@ -1228,27 +1163,27 @@
     <div class="wrap">
       <div class="contact-grid">
         <div class="contact-head">
-          <span class="eyebrow on-dark reveal">Contact</span>
-          <h2 class="reveal d1">Let&rsquo;s build something that <em>sees</em>.</h2>
+          <span class="eyebrow on-dark reveal" data-i18n="contact.eyebrow">聯絡</span>
+          <h2 class="reveal d1" data-i18n-html="contact.h2">一起打造能<em>觀看</em>的東西。</h2>
           <a class="contact-mail reveal d2" href="mailto:andrian.wu.7@gmail.com">
             andrian.wu.7@gmail.com
             <svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7m0 0H9m8 0v8"/></svg>
           </a>
           <div class="cv-row reveal d3">
             <a class="btn btn-primary" href="cv-andrian-wu-en.pdf" download>
-              Download CV (EN)
+              <span data-i18n="contact.cvEn">下載履歷（EN）</span>
               <span class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 20h14"/></svg></span>
             </a>
             <a class="btn btn-ghost" href="cv-andrian-wu-zh.pdf" download>
-              Download CV (<span lang="zh">中文</span>)
+              <span data-i18n-html="contact.cvZh">下載履歷（<span lang="zh">中文</span>）</span>
               <span class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 20h14"/></svg></span>
             </a>
           </div>
         </div>
         <div class="contact-side reveal d2">
-          <span class="label">Direct</span>
+          <span class="label" data-i18n="contact.direct">直接聯繫</span>
           <p class="phone">(+886) 987-128-399</p>
-          <span class="label" style="margin-top:16px">Elsewhere</span>
+          <span class="label" style="margin-top:16px" data-i18n="contact.elsewhere">其他平台</span>
           <div class="social-row">
             <a class="social" href="https://github.com/Zen1th7" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a class="social" href="https://linkedin.com/in/andrian-wu-16035b254" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -1265,7 +1200,7 @@
     <div class="wrap">
       <div class="foot-in">
         <span class="brand"><span class="tri" aria-hidden="true">&#9651;</span><span class="sr-only">A</span>ndrian&nbsp;Wu</span>
-        <small>&copy; 2026 Andrian Wu &middot; AI / Computer Vision Engineer &middot; Tainan, Taiwan</small>
+        <small data-i18n="footer.small">&copy; 2026 Andrian Wu &middot; AI／電腦視覺工程師 &middot; 台灣台南</small>
       </div>
     </div>
   </footer>
@@ -1274,6 +1209,168 @@
 (function(){
   "use strict";
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ================================================================
+     I18N — English + Taiwan Traditional Chinese (zh-TW). Default 繁中.
+     Every visible text node carries a data-i18n / data-i18n-html /
+     data-i18n-aria / data-i18n-alt key; values below are static string
+     literals (no user input → innerHTML use is safe under the CSP).
+     ================================================================ */
+  var I18N = {
+    en: {
+      "skip":"Skip to content",
+      "nav.about":"About","nav.experience":"Experience","nav.work":"Work","nav.contact":"Contact",
+      "nav.cv":"Download CV","nav.cvAria":"Download CV (English PDF)",
+      "menu.open":"Open menu","menu.close":"Close menu",
+      "lang.toggle":"切換到中文 / Switch to Traditional Chinese",
+      "doc.title":"Andrian Wu — AI / Computer Vision Engineer",
+      "meta.desc":"Andrian Wu — AI & computer-vision engineer and front-end developer in Tainan, Taiwan. Object detection, OCR, image enhancement, 3D reconstruction, and the web & app interfaces around them.",
+      "hero.eyebrow":"Tainan, Taiwan · Available 2026",
+      "hero.h1a":"AI / Computer",
+      "hero.h1b":"<em>Vision</em> Engineer",
+      "hero.h1c":"who ships the web.",
+      "hero.sub":"I build machines that <strong>see &amp; reconstruct</strong> — detection, OCR, image-enhancement and 3D — and I design and ship the <strong>web front-ends</strong> that put them in people’s hands.",
+      "hero.viewWork":"View selected work",
+      "hero.getInTouch":"Get in touch",
+      "hero.caption":"Live point-cloud — move your cursor to focus the reconstruction",
+      "about.h2":"About","about.eyebrow":"About",
+      "about.lead":"I build machines that <span class=\"hl\"><em>see</em></span> — then I build the web where people <span class=\"hl\"><em>use</em></span> them.",
+      "about.body1":"I’m <strong>Andrian Wu</strong>, an AI &amp; computer-vision engineer who turns detection, OCR, image-enhancement and 3D-reconstruction problems into deployable systems — most recently <strong>Moneta</strong>, a multi-currency finance app. My work runs from research and modeling through to the interface a person actually touches.",
+      "about.body2":"Trilingual with basic Japanese, based in Tainan, and equally at home in a training loop or a component tree.",
+      "about.sig":"Research → Production",
+      "about.cred":"+ Front-End",
+      "about.portraitAlt":"Portrait of Andrian Wu",
+      "facts.focus.dt":"Focus","facts.focus.dd":"AI · CV · Front-End",
+      "facts.loc.dt":"Location","facts.loc.dd":"Tainan, Taiwan",
+      "facts.lang.dt":"Languages","facts.lang.dd":"EN · <span lang=\"zh\">中文</span> · <span lang=\"ja\">日本語</span>",
+      "facts.status.dt":"Status","facts.status.dd":"Open to roles",
+      "cap.eyebrow":"Capabilities","cap.h2":"A full stack, from tensors to typography.",
+      "cap.ai.h3":"AI & Machine Learning","cap.ai.desc":"Training, evaluation & MLOps",
+      "cap.cv.h3":"Computer Vision","cap.cv.desc":"Detection, pose, OCR & scene analysis",
+      "cap.fe.h3":"Front-End & App","cap.fe.desc":"Interfaces, apps & delivery",
+      "cap.td.h3":"3D & Neural Reconstruction","cap.td.desc":"Reconstruction & neural rendering",
+      "cap.prog.h3":"Programming","cap.prog.desc":"Systems across languages",
+      "cap.game.h3":"Game & 3D Tools","cap.game.desc":"Interactive & 3D content",
+      "xp.eyebrow":"Experience","xp.h2":"Research that reaches production.",
+      "xp.role1.date":"2025 / 05 — Present","xp.role1.title":"AI Engineer",
+      "xp.role1.desc":"Computer-vision & 3D reconstruction R&D, paired with the React front-ends that turn those models into usable products.","xp.role1.tag":"Computer Vision",
+      "xp.role2.date":"2024 / 08 — 2025 / 04","xp.role2.title":"AI Modeling Engineer",
+      "xp.role2.desc":"End-to-end AI modeling, including an <strong>Arc’teryx</strong> AI fabric-inspection collaboration — from dataset to deployed model.","xp.role2.tag":"Modeling",
+      "xp.role3.date":"2023 — 2024","xp.role3.title":"English Teaching Assistant & TOEIC Author",
+      "xp.role3.desc":"Authored TOEIC materials and supported English instruction.","xp.role3.tag":"Language",
+      "proj.eyebrow":"Selected Work","proj.h2":"Five things I built & shipped.",
+      "proj.p":"Vision models, a production finance app, image restoration, voice automation, and a game — each taken from idea to something you can run.",
+      "proj.p1.kind":"Computer Vision · YOLOv5","proj.p1.desc":"Object-detection model trained to flag counterfeit banknotes from imagery.",
+      "proj.p2.kind":"Vue3 · Quasar · Capacitor","proj.p2.desc":"A shipped multi-currency personal-finance app, from data model to native shell.",
+      "proj.p3.kind":"Image Enhancement · OpenCV","proj.p3.desc":"Real-time haze removal that restores contrast and clarity across video frames.",
+      "proj.p4.kind":"Speech + Selenium","proj.p4.desc":"Books high-speed-rail tickets by voice, solving the captcha step end-to-end.",
+      "proj.p5.kind":"Unity · Horror Game","proj.p5.desc":"A self-built Unity horror game, published and playable on itch.io.",
+      "contact.eyebrow":"Contact","contact.h2":"Let’s build something that <em>sees</em>.",
+      "contact.cvEn":"Download CV (EN)","contact.cvZh":"Download CV (<span lang=\"zh\">中文</span>)",
+      "contact.direct":"Direct","contact.elsewhere":"Elsewhere",
+      "footer.small":"© 2026 Andrian Wu · AI / Computer Vision Engineer · Tainan, Taiwan"
+    },
+    zh: {
+      "skip":"跳到主要內容",
+      "nav.about":"關於","nav.experience":"經歷","nav.work":"作品","nav.contact":"聯絡",
+      "nav.cv":"下載履歷","nav.cvAria":"下載履歷（英文 PDF）",
+      "menu.open":"開啟選單","menu.close":"關閉選單",
+      "lang.toggle":"切換到英文 / Switch to English",
+      "doc.title":"Andrian Wu — AI／電腦視覺工程師",
+      "meta.desc":"Andrian Wu — 台灣台南的 AI 與電腦視覺工程師暨前端開發者。物件偵測、OCR、影像增強、3D 重建，以及圍繞它們打造的網頁與應用程式介面。",
+      "hero.eyebrow":"台灣台南 · 2026 可上工",
+      "hero.h1a":"AI／電腦",
+      "hero.h1b":"<em>視覺</em>工程師",
+      "hero.h1c":"也親手打造網頁。",
+      "hero.sub":"我打造能<strong>觀看與重建</strong>的機器——物件偵測、OCR、影像增強與 3D——並設計、打造把它們交到人們手中的<strong>網頁前端</strong>。",
+      "hero.viewWork":"瀏覽精選作品",
+      "hero.getInTouch":"與我聯絡",
+      "hero.caption":"即時點雲——移動游標以聚焦重建",
+      "about.h2":"關於","about.eyebrow":"關於",
+      "about.lead":"我打造能<span class=\"hl\"><em>觀看</em></span>的機器——再打造讓人們<span class=\"hl\"><em>使用</em></span>它們的網頁。",
+      "about.body1":"我是 <strong>Andrian Wu</strong>，一位 AI 與電腦視覺工程師，將物件偵測、OCR、影像增強與 3D 重建問題轉化為可部署的系統——最近的作品是<strong>Moneta</strong>，一款多幣別理財應用程式。我的工作橫跨研究、建模，一路到使用者真正接觸的介面。",
+      "about.body2":"通曉三種語言並具備基礎日語，定居台南，在訓練迴圈與元件樹裡同樣自在。",
+      "about.sig":"研究 → 產品上線",
+      "about.cred":"+ 前端",
+      "about.portraitAlt":"Andrian Wu 的肖像",
+      "facts.focus.dt":"專長","facts.focus.dd":"AI · 電腦視覺 · 前端",
+      "facts.loc.dt":"所在地","facts.loc.dd":"台灣台南",
+      "facts.lang.dt":"語言","facts.lang.dd":"英文 · <span lang=\"zh\">中文</span> · <span lang=\"ja\">日本語</span>",
+      "facts.status.dt":"狀態","facts.status.dd":"正在尋找機會",
+      "cap.eyebrow":"專業能力","cap.h2":"全端能力，從張量到字體排版。",
+      "cap.ai.h3":"AI 與機器學習","cap.ai.desc":"訓練、評估與 MLOps",
+      "cap.cv.h3":"電腦視覺","cap.cv.desc":"偵測、姿態、OCR 與場景分析",
+      "cap.fe.h3":"前端與應用程式","cap.fe.desc":"介面、應用程式與交付",
+      "cap.td.h3":"3D 與神經重建","cap.td.desc":"三維重建與神經渲染",
+      "cap.prog.h3":"程式設計","cap.prog.desc":"跨語言的系統開發",
+      "cap.game.h3":"遊戲與 3D 工具","cap.game.desc":"互動與 3D 內容",
+      "xp.eyebrow":"工作經驗","xp.h2":"從研究到產品上線。",
+      "xp.role1.date":"2025 / 05 — 至今","xp.role1.title":"AI 工程師",
+      "xp.role1.desc":"電腦視覺與 3D 重建研發，並搭配 React 前端，把這些模型變成可用的產品。","xp.role1.tag":"電腦視覺",
+      "xp.role2.date":"2024 / 08 — 2025 / 04","xp.role2.title":"AI 建模工程師",
+      "xp.role2.desc":"端到端的 AI 建模，包含與 <strong>Arc’teryx</strong> 合作的 AI 布料瑕疵檢測專案——從資料集到部署模型。","xp.role2.tag":"建模",
+      "xp.role3.date":"2023 — 2024","xp.role3.title":"英語教學助理與 TOEIC 教材編寫",
+      "xp.role3.desc":"編寫 TOEIC 教材並協助英語教學。","xp.role3.tag":"語言",
+      "proj.eyebrow":"精選作品","proj.h2":"五件我打造並上線的作品。",
+      "proj.p":"視覺模型、一款上線的理財應用程式、影像修復、語音自動化，以及一款遊戲——每一項都從構想做到可實際執行。",
+      "proj.p1.kind":"電腦視覺 · YOLOv5","proj.p1.desc":"訓練物件偵測模型，從影像中辨識出偽鈔。",
+      "proj.p2.kind":"Vue3 · Quasar · Capacitor","proj.p2.desc":"已上線的多幣別個人理財應用程式，從資料模型到原生外殼。",
+      "proj.p3.kind":"影像增強 · OpenCV","proj.p3.desc":"即時去霧，還原影片各幀的對比與清晰度。",
+      "proj.p4.kind":"語音辨識 + Selenium","proj.p4.desc":"以語音預訂高鐵車票，並端到端解決驗證碼步驟。",
+      "proj.p5.kind":"Unity · 恐怖遊戲","proj.p5.desc":"自製的 Unity 恐怖遊戲，已發佈並可於 itch.io 遊玩。",
+      "contact.eyebrow":"聯絡","contact.h2":"一起打造能<em>觀看</em>的東西。",
+      "contact.cvEn":"下載履歷（EN）","contact.cvZh":"下載履歷（<span lang=\"zh\">中文</span>）",
+      "contact.direct":"直接聯繫","contact.elsewhere":"其他平台",
+      "footer.small":"© 2026 Andrian Wu · AI／電腦視覺工程師 · 台灣台南"
+    }
+  };
+
+  var currentLang = (window.__initLang === "en") ? "en" : "zh";
+
+  function applyLang(lang){
+    var dict = I18N[lang] || I18N.zh;
+    currentLang = lang;
+    document.documentElement.lang = (lang === "en") ? "en" : "zh-TW";
+    var el, v, i, list;
+    list = document.querySelectorAll("[data-i18n]");
+    for(i=0;i<list.length;i++){ v = dict[list[i].getAttribute("data-i18n")]; if(v!=null) list[i].textContent = v; }
+    list = document.querySelectorAll("[data-i18n-html]");
+    for(i=0;i<list.length;i++){ v = dict[list[i].getAttribute("data-i18n-html")]; if(v!=null) list[i].innerHTML = v; }
+    list = document.querySelectorAll("[data-i18n-aria]");
+    for(i=0;i<list.length;i++){ v = dict[list[i].getAttribute("data-i18n-aria")]; if(v!=null) list[i].setAttribute("aria-label", v); }
+    list = document.querySelectorAll("[data-i18n-alt]");
+    for(i=0;i<list.length;i++){ v = dict[list[i].getAttribute("data-i18n-alt")]; if(v!=null) list[i].setAttribute("alt", v); }
+    if(dict["doc.title"]) document.title = dict["doc.title"];
+    var bg = document.querySelector(".burger");
+    if(bg){ bg.setAttribute("aria-label", document.body.classList.contains("menu-open") ? dict["menu.close"] : dict["menu.open"]); }
+    // reflect current/target language on the toggles (accessible name announces the action)
+    if(dict["lang.toggle"]){
+      var tgs = document.querySelectorAll("[data-lang-toggle]");
+      for(i=0;i<tgs.length;i++){ tgs[i].setAttribute("aria-label", dict["lang.toggle"]); }
+    }
+    // mirror localized title/description into the social + SEO meta so scrapers
+    // match the rendered language (default zh-TW) rather than a stale en_US.
+    var setMeta = function(sel, val){ var m = document.querySelector(sel); if(m && val!=null) m.setAttribute("content", val); };
+    setMeta('meta[property="og:locale"]', (lang === "en") ? "en_US" : "zh_TW");
+    setMeta('meta[property="og:locale:alternate"]', (lang === "en") ? "zh_TW" : "en_US");
+    if(dict["doc.title"]){ setMeta('meta[property="og:title"]', dict["doc.title"]); setMeta('meta[name="twitter:title"]', dict["doc.title"]); }
+    if(dict["meta.desc"]){
+      setMeta('meta[name="description"]', dict["meta.desc"]);
+      setMeta('meta[property="og:description"]', dict["meta.desc"]);
+      setMeta('meta[name="twitter:description"]', dict["meta.desc"]);
+    }
+  }
+  function setLang(lang){
+    applyLang(lang);
+    try{ localStorage.setItem("lang", lang); }catch(e){}
+  }
+  (function(){
+    var toggles = document.querySelectorAll("[data-lang-toggle]");
+    for(var i=0;i<toggles.length;i++){
+      toggles[i].addEventListener("click", function(){ setLang(currentLang === "en" ? "zh" : "en"); });
+    }
+  })();
+  applyLang(currentLang);
 
   /* ---------- page load reveal ---------- */
   window.addEventListener("load", function(){
@@ -1299,12 +1396,25 @@
   var burger = document.querySelector(".burger");
   var menu = document.getElementById("menu");
   var mainEl = document.getElementById("top");
+  // Background regions hidden from SR while the overlay is open. The nav-pill
+  // (brand + redundant lang toggle) and footer sit OUTSIDE #top, so hiding
+  // #top alone left them browsable behind the modal. The burger stays reachable
+  // (it lives in <header> but not in .nav-pill) so it can still close the menu.
+  var navPill = document.querySelector(".nav-pill");
+  var footerEl = document.querySelector("footer");
+  function hideBg(hidden){
+    var v = hidden ? "true" : null;
+    [mainEl, navPill, footerEl].forEach(function(el){
+      if(!el) return;
+      if(v) el.setAttribute("aria-hidden", v); else el.removeAttribute("aria-hidden");
+    });
+  }
   function openMenu(){
     document.body.classList.add("menu-open");
     burger.setAttribute("aria-expanded","true");
-    burger.setAttribute("aria-label","Close menu");
+    burger.setAttribute("aria-label", (I18N[currentLang]||I18N.zh)["menu.close"]);
     menu.setAttribute("aria-hidden","false");
-    if(mainEl) mainEl.setAttribute("aria-hidden","true");   // background inert to SR
+    hideBg(true);                                           // background inert to SR
     // Defer focus two frames so the overlay's visibility has resolved to
     // `visible` (it transitions from hidden over .5s); focusing a
     // visibility:hidden element is a silent no-op.
@@ -1319,9 +1429,9 @@
     if(!document.body.classList.contains("menu-open")) return;
     document.body.classList.remove("menu-open");
     burger.setAttribute("aria-expanded","false");
-    burger.setAttribute("aria-label","Open menu");
+    burger.setAttribute("aria-label", (I18N[currentLang]||I18N.zh)["menu.open"]);
     menu.setAttribute("aria-hidden","true");
-    if(mainEl) mainEl.removeAttribute("aria-hidden");
+    hideBg(false);
     burger.focus();                                         // return focus to the trigger
   }
   burger.addEventListener("click", function(){
@@ -1332,7 +1442,7 @@
   // trap Tab within the open overlay
   menu.addEventListener("keydown", function(e){
     if(e.key !== "Tab" || !document.body.classList.contains("menu-open")) return;
-    var f = menu.querySelectorAll("a");
+    var f = menu.querySelectorAll("a, button");
     if(!f.length) return;
     var first = f[0], last = f[f.length-1];
     if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
@@ -1406,67 +1516,88 @@
   var ctx = canvas.getContext("2d", {alpha:true});
   var TAU = Math.PI * 2;
 
-  // point budget scales with viewport (fewer on small screens)
-  var iw0 = window.innerWidth;
-  var N = iw0 < 720 ? 1200 : (iw0 < 1100 ? 1700 : 2000);
-
-  var dirx = new Float32Array(N), diry = new Float32Array(N), dirz = new Float32Array(N);
-  var ua = new Float32Array(N), va = new Float32Array(N); // theta, phi params (for displacement)
-  var sx = new Float32Array(N), sy = new Float32Array(N);
-  var shade = new Float32Array(N), foc = new Float32Array(N), front = new Uint8Array(N);
-
-  // ---- even, poleless distribution: Fibonacci (golden-spiral) sphere ----
-  var GA = Math.PI * (3 - Math.sqrt(5));            // golden angle
-  for(var i=0;i<N;i++){
-    var y = 1 - (i + 0.5) / N * 2;                  // 1 -> -1, no clustering
-    var rxz = Math.sqrt(Math.max(0, 1 - y*y));
-    var th = i * GA;
-    dirx[i] = Math.cos(th) * rxz;
-    diry[i] = y;
-    dirz[i] = Math.sin(th) * rxz;
-    ua[i] = th;                                      // spiral angle
-    va[i] = Math.acos(y < -1 ? -1 : (y > 1 ? 1 : y));// polar angle 0..pi
+  // ---- point budget scales with viewport (fewer on small screens) ----
+  // Rebuilt on meaningful width changes / orientation (debounced) so rotating
+  // or resizing never leaves a stale point count.
+  function computeN(){
+    var w = window.innerWidth;
+    return w < 480 ? 900 : (w < 720 ? 1200 : (w < 1100 ? 1700 : 2000));
   }
+  var N, dirx, diry, dirz, ua, va, sx, sy, shade, foc, front, edges, EDGE_N;
+  function buildGeometry(){
+    N = computeN();
+    dirx = new Float32Array(N); diry = new Float32Array(N); dirz = new Float32Array(N);
+    ua = new Float32Array(N); va = new Float32Array(N);   // theta, phi params (for displacement)
+    sx = new Float32Array(N); sy = new Float32Array(N);
+    shade = new Float32Array(N); foc = new Float32Array(N); front = new Uint8Array(N);
 
-  // ---- sparse elegant "mesh": link each point to its K nearest neighbours ----
-  var K = 3;
-  var edges = [];
-  var seen = new Set();
-  for(var a0=0;a0<N;a0++){
-    var bD0=1e9,bD1=1e9,bD2=1e9, bI0=-1,bI1=-1,bI2=-1;
-    var ax=dirx[a0], ay=diry[a0], az=dirz[a0];
-    for(var jn=0;jn<N;jn++){
-      if(jn===a0) continue;
-      var ddx=dirx[jn]-ax, ddy=diry[jn]-ay, ddz=dirz[jn]-az;
-      var dd=ddx*ddx+ddy*ddy+ddz*ddz;
-      if(dd<bD0){ bD2=bD1;bI2=bI1; bD1=bD0;bI1=bI0; bD0=dd;bI0=jn; }
-      else if(dd<bD1){ bD2=bD1;bI2=bI1; bD1=dd;bI1=jn; }
-      else if(dd<bD2){ bD2=dd;bI2=jn; }
+    // ---- even, poleless distribution: Fibonacci (golden-spiral) sphere ----
+    var GA = Math.PI * (3 - Math.sqrt(5));            // golden angle
+    for(var i=0;i<N;i++){
+      var y = 1 - (i + 0.5) / N * 2;                  // 1 -> -1, no clustering
+      var rxz = Math.sqrt(Math.max(0, 1 - y*y));
+      var th = i * GA;
+      dirx[i] = Math.cos(th) * rxz;
+      diry[i] = y;
+      dirz[i] = Math.sin(th) * rxz;
+      ua[i] = th;                                      // spiral angle
+      va[i] = Math.acos(y < -1 ? -1 : (y > 1 ? 1 : y));// polar angle 0..pi
     }
-    var nn=[bI0,bI1,bI2];
-    for(var kn=0;kn<K;kn++){
-      var jj=nn[kn]; if(jj<0) continue;
-      var lo = a0<jj?a0:jj, hi = a0<jj?jj:a0;
-      var key = lo*N + hi;
-      if(!seen.has(key)){ seen.add(key); edges.push(lo, hi); }
+
+    // ---- sparse elegant "mesh": link each point to its K nearest neighbours ----
+    var K = 3;
+    edges = [];
+    var seen = new Set();
+    for(var a0=0;a0<N;a0++){
+      var bD0=1e9,bD1=1e9,bD2=1e9, bI0=-1,bI1=-1,bI2=-1;
+      var ax=dirx[a0], ay=diry[a0], az=dirz[a0];
+      for(var jn=0;jn<N;jn++){
+        if(jn===a0) continue;
+        var ddx=dirx[jn]-ax, ddy=diry[jn]-ay, ddz=dirz[jn]-az;
+        var dd=ddx*ddx+ddy*ddy+ddz*ddz;
+        if(dd<bD0){ bD2=bD1;bI2=bI1; bD1=bD0;bI1=bI0; bD0=dd;bI0=jn; }
+        else if(dd<bD1){ bD2=bD1;bI2=bI1; bD1=dd;bI1=jn; }
+        else if(dd<bD2){ bD2=dd;bI2=jn; }
+      }
+      var nn=[bI0,bI1,bI2];
+      for(var kn=0;kn<K;kn++){
+        var jj=nn[kn]; if(jj<0) continue;
+        var lo = a0<jj?a0:jj, hi = a0<jj?jj:a0;
+        var key = lo*N + hi;
+        if(!seen.has(key)){ seen.add(key); edges.push(lo, hi); }
+      }
     }
+    EDGE_N = edges.length; // pairs*2
   }
-  var EDGE_N = edges.length; // pairs*2
+  buildGeometry();
 
   var W=0, Hh=0, DPR=1, cx=0, cy=0, scale=1;
   function resize(){
     var r = canvas.getBoundingClientRect();
-    DPR = Math.min(window.devicePixelRatio||1, 2);
     W = Math.max(1, Math.round(r.width));
     Hh = Math.max(1, Math.round(r.height));
+    // cap DPR (lighter on phones) for smooth fill-rate
+    DPR = Math.min(window.devicePixelRatio||1, W < 720 ? 1.75 : 2);
     canvas.width = Math.round(W*DPR);
     canvas.height = Math.round(Hh*DPR);
     ctx.setTransform(DPR,0,0,DPR,0,0);
-    cx = W*0.5; cy = Hh*0.5;
-    // composition: nudge the form up-right of centre, behind the headline
-    cx = W * (W < 720 ? 0.5 : 0.62);
-    cy = Hh * (W < 720 ? 0.36 : 0.44);
-    scale = Math.min(W,Hh) * (W < 720 ? 0.46 : 0.40);
+    // composition tuned per breakpoint + orientation so the form fits nicely
+    // (not overflowing, not tiny) on portrait phones, tablets and desktop.
+    var portrait = Hh >= W;
+    var m = Math.min(W,Hh);
+    if(W < 720){                 // phones
+      cx = W * 0.5;
+      cy = Hh * (portrait ? 0.34 : 0.40);
+      scale = m * (portrait ? 0.52 : 0.46);
+    } else if(W < 1100){         // tablets
+      cx = W * (portrait ? 0.5 : 0.60);
+      cy = Hh * (portrait ? 0.38 : 0.44);
+      scale = m * (portrait ? 0.46 : 0.42);
+    } else {                     // desktop — nudge up-right of centre, behind the headline
+      cx = W * 0.62;
+      cy = Hh * 0.44;
+      scale = m * 0.40;
+    }
   }
 
   // pointer (smoothed, normalized -1..1) + screen pos for lens
@@ -1711,7 +1842,22 @@
       {threshold:0.01}).observe(hero);
   }
 
-  window.addEventListener("resize", resize, {passive:true});
+  // Debounced viewport change: rebuild the point budget/geometry when the
+  // width bucket changes (resize or orientation flip) so the cloud is never
+  // stale, then re-fit. The rAF ResizeObserver below still handles pure
+  // re-fits (mobile address-bar / dvh) instantly without a rebuild.
+  var geoTimer;
+  function onViewportChange(){
+    clearTimeout(geoTimer);
+    geoTimer = setTimeout(function(){
+      if(computeN() !== N){ buildGeometry(); }
+      resize();
+      if(reduceMotion){ var _t = t; lensX = -9999; draw(1); t = _t; }
+      else kick();
+    }, 180);
+  }
+  window.addEventListener("resize", onViewportChange, {passive:true});
+  window.addEventListener("orientationchange", onViewportChange, {passive:true});
   // ResizeObserver → re-fit on mobile dvh / address-bar changes and any
   // container resize (no stretch/clip). rAF-debounced.
   if("ResizeObserver" in window){
