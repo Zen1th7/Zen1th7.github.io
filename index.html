@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://zen1th7.github.io/">
 <meta property="og:title" content="Andrian Wu — AI／電腦視覺工程師">
 <meta property="og:description" content="Andrian Wu — 台灣台南的 AI 與電腦視覺工程師暨前端開發者。物件偵測、OCR、影像增強、3D 重建，以及圍繞它們打造的網頁與應用程式介面。">
-<meta property="og:image" content="https://zen1th7.github.io/images/174322.jpg">
+<meta property="og:image" content="https://zen1th7.github.io/og-image.png">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:locale:alternate" content="en_US">
 
@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Andrian Wu — AI／電腦視覺工程師">
 <meta name="twitter:description" content="Andrian Wu — 台灣台南的 AI 與電腦視覺工程師暨前端開發者。">
-<meta name="twitter:image" content="https://zen1th7.github.io/images/174322.jpg">
+<meta name="twitter:image" content="https://zen1th7.github.io/og-image.png">
 
 <meta name="theme-color" content="#17130D">
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -49,7 +49,7 @@
   "name": "Andrian Wu",
   "jobTitle": "AI / Computer Vision Engineer",
   "url": "https://zen1th7.github.io/",
-  "image": "https://zen1th7.github.io/images/174322.jpg",
+  "image": "https://zen1th7.github.io/og-image.png",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Tainan",
@@ -100,12 +100,16 @@
   }
 
   *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  /* Root stage colour: the dark espresso hero owns the first view. Painting the
+     root + body dark means any overscroll / pull-to-refresh / sub-pixel gap
+     behind the hero shows dark on mobile + tablet (matching desktop), never a
+     light strip. The light sections set their own ivory backgrounds. */
+  html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; background:var(--stage); }
   @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
 
   body{
     margin:0;
-    background:var(--ivory);
+    background:var(--stage);
     color:var(--ink);
     font-family:var(--ff-sans);
     font-size:17px;
@@ -114,6 +118,7 @@
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
     overflow-x:hidden;
+    overscroll-behavior:none;
   }
   ::selection{ background:var(--accent); color:var(--paper); }
 
@@ -275,8 +280,16 @@
   html[lang="zh-TW"] .lang-toggle [data-lang="en"]{ color:rgba(237,227,208,0.82); }
   /* coarse pointers (touch): raise the pill to the >=44px tap-target guideline */
   @media (pointer:coarse){ .lang-toggle{ min-height:44px; padding-block:12px; } }
-  /* menu variant — larger tap target inside the mobile overlay */
-  .lang-toggle--menu{ align-self:flex-start; margin-top:30px; padding:13px 22px; font-size:16px; }
+  /* menu variant — reads as a numbered big-serif menu row (see overlay rules below) */
+  .lang-toggle.lang-toggle--menu{
+    align-self:flex-start; display:block; width:auto;
+    margin-top:0; padding-block:6px; min-height:44px;
+    background:none; border:0; border-radius:0;
+    font-family:var(--ff-display); font-size:clamp(29px,7.6vw,48px);
+    letter-spacing:0; line-height:1.2; white-space:nowrap;
+    color:var(--stage-ivory);
+  }
+  .lang-toggle--menu .sep{ margin:0 0.14em; }
 
   .burger{
     pointer-events:auto; display:none;
@@ -312,31 +325,49 @@
     transition:opacity .5s var(--ease), visibility .5s var(--ease);
   }
   body.menu-open .menu-overlay{ opacity:1; visibility:visible; }
-  .menu-overlay a{
-    font-family:var(--ff-display); font-size:clamp(34px,11vw,60px);
-    color:var(--stage-ivory); line-height:1.2;
-    opacity:0; transform:translateY(28px);
-    transition:opacity .6s var(--ease), transform .7s var(--ease-soft);
-  }
-  .menu-overlay a .idx{ font-family:var(--ff-sans); font-size:13px; color:var(--accent-2); vertical-align:super; margin-right:12px; }
-  body.menu-open .menu-overlay a{ opacity:1; transform:translateY(0); }
-  body.menu-open .menu-overlay a:nth-child(1){ transition-delay:.08s; }
-  body.menu-open .menu-overlay a:nth-child(2){ transition-delay:.14s; }
-  body.menu-open .menu-overlay a:nth-child(3){ transition-delay:.20s; }
-  body.menu-open .menu-overlay a:nth-child(4){ transition-delay:.26s; }
-  body.menu-open .menu-overlay a:nth-child(5){ transition-delay:.32s; }
 
-  /* mobile-menu CV item → inline language expander (matches overlay type) */
+  /* Unified menu-item rhythm (01–06): the four links, the CV disclosure trigger
+     and the language switch all share one big-serif scale, a super-script index
+     number, a staggered slide-in reveal on open, and a copper hover — so the
+     overlay is fully symmetric with no foreign-looking controls. */
+  .menu-overlay > a,
+  .menu-cv-trigger,
+  .lang-toggle.lang-toggle--menu{
+    font-family:var(--ff-display); color:var(--stage-ivory); line-height:1.2;
+    opacity:0; transform:translateY(28px);
+    transition:opacity .6s var(--ease), transform .7s var(--ease-soft), color .35s var(--ease);
+  }
+  .menu-overlay > a{ font-size:clamp(34px,11vw,60px); }
+  .menu-overlay > a .idx,
+  .menu-cv-trigger .idx,
+  .lang-toggle--menu .idx{
+    font-family:var(--ff-sans); font-size:13px; color:var(--accent-2);
+    vertical-align:super; margin-right:14px; letter-spacing:0.02em;
+  }
+  .menu-overlay > a:hover,.menu-overlay > a:focus-visible,
+  .menu-cv-trigger:hover,.menu-cv-trigger:focus-visible{ color:var(--accent-2); }
+
+  body.menu-open .menu-overlay > a,
+  body.menu-open .menu-cv-trigger,
+  body.menu-open .lang-toggle.lang-toggle--menu{ opacity:1; transform:translateY(0); }
+  body.menu-open .menu-overlay > a:nth-child(1){ transition-delay:.08s; }
+  body.menu-open .menu-overlay > a:nth-child(2){ transition-delay:.14s; }
+  body.menu-open .menu-overlay > a:nth-child(3){ transition-delay:.20s; }
+  body.menu-open .menu-overlay > a:nth-child(4){ transition-delay:.26s; }
+  body.menu-open .menu-cv-trigger{ transition-delay:.32s; }
+  body.menu-open .lang-toggle.lang-toggle--menu{ transition-delay:.38s; }
+
+  /* mobile-menu CV item (05) → inline language expander. Sized a step down from
+     the links + white-space:nowrap so "Download CV" / 下載履歷 always stays ONE
+     line at 360–1024px, keeping every row visually symmetric. */
   .menu-cv{ display:flex; flex-direction:column; }
   .menu-cv-trigger{
-    display:inline-flex; align-items:center; align-self:flex-start;
-    background:none; border:0; padding:0; cursor:pointer; text-align:left;
-    font-family:var(--ff-display); font-size:clamp(34px,11vw,60px);
-    color:var(--stage-ivory); line-height:1.2;
+    display:block; width:auto; align-self:flex-start;
+    background:none; border:0; padding-block:6px; margin:0; min-height:44px; cursor:pointer; text-align:left;
+    font-size:clamp(29px,7.6vw,48px); white-space:nowrap;
   }
-  .menu-cv-trigger .idx{ font-family:var(--ff-sans); font-size:13px; color:var(--accent-2); vertical-align:super; margin-right:12px; }
-  .menu-cv-caret{ display:inline-flex; margin-left:16px; color:var(--accent-2); transition:transform .4s var(--ease-soft); }
-  .menu-cv-caret svg{ width:26px; height:26px; }
+  .menu-cv-caret{ display:inline-block; margin-left:16px; color:var(--accent-2); transition:transform .4s var(--ease-soft); }
+  .menu-cv-caret svg{ width:24px; height:24px; vertical-align:-0.1em; }
   .menu-cv.open .menu-cv-caret{ transform:rotate(180deg); }
   .menu-cv-opts{
     display:flex; flex-direction:column; overflow:hidden;
@@ -344,17 +375,24 @@
     transition:max-height .45s var(--ease-soft), opacity .4s var(--ease), visibility .45s var(--ease), margin-top .45s var(--ease-soft);
   }
   .menu-cv.open .menu-cv-opts{ max-height:180px; opacity:1; visibility:visible; margin-top:8px; }
-  /* raised specificity so these beat the overlay's huge-serif `.menu-overlay a` */
+  /* revealed language sub-options — indented, smaller, clearly secondary */
   .menu-overlay .menu-cv-opt{
-    display:block; font-family:var(--ff-sans); font-size:20px; line-height:1.25; letter-spacing:0;
-    color:rgba(237,227,208,0.82); padding:11px 0; white-space:nowrap;
+    display:block; font-family:var(--ff-sans); font-size:18px; line-height:1.25; letter-spacing:0.01em;
+    color:rgba(237,227,208,0.78); padding:11px 0; min-height:44px; white-space:nowrap;
     transition:color .3s var(--ease);
   }
+  .menu-overlay .menu-cv-opt::before{ content:"— "; color:var(--accent-2); opacity:0.7; }
   .menu-overlay .menu-cv-opt:hover,.menu-overlay .menu-cv-opt:focus-visible{ color:var(--accent-2); }
 
   /* ---------- HERO : the showpiece stage ---------- */
   .hero{
-    position:relative; min-height:100dvh;
+    position:relative;
+    /* Robust full-height so the dark hero reliably covers the mobile/tablet
+       initial viewport on first paint (address bar shown) — no light strip
+       below the hero. svh preferred; dvh then vh as fallbacks. */
+    min-height:100vh;
+    min-height:100dvh;
+    min-height:100svh;
     background:var(--stage);
     color:var(--stage-ivory);
     overflow:hidden;
@@ -635,7 +673,6 @@
   .reveal.d1{ transition-delay:.08s; }
   .reveal.d2{ transition-delay:.16s; }
   .reveal.d3{ transition-delay:.24s; }
-  .reveal.d4{ transition-delay:.32s; }
 
   /* hero load reveal */
   .hero .line-mask > span,
@@ -676,12 +713,6 @@
   }
   .reveal.in .about-kicker, .about-kicker.in{ transform:scaleX(1); }
   .about-lead{ font-size:clamp(27px,3.7vw,44px); line-height:1.16; margin-top:16px; }
-  .about-lead .hl{ position:relative; white-space:nowrap; }
-  .about-lead .hl::after{
-    content:""; position:absolute; left:-2px; right:-2px; bottom:2px; height:0.42em; z-index:-1;
-    background:linear-gradient(90deg, rgba(192,90,44,0.16), rgba(224,138,60,0.05));
-    border-radius:3px;
-  }
   .about-sig{                             /* second-read signature line */
     display:flex; align-items:center; gap:14px; margin-top:34px;
     font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted);
@@ -792,7 +823,6 @@
   }
 
   @media (max-width:720px){
-    .about-lead .hl{ white-space:normal; }
     .portrait-cred{ right:8px; top:auto; bottom:64px; }
     /* experience: stack date above the role, keep the flat hairline rhythm */
     .xp-row{ grid-template-columns:1fr; gap:6px; padding:26px 4px; }
@@ -923,7 +953,7 @@
     </div>
   </div>
   <button class="lang-toggle lang-toggle--menu" data-lang-toggle type="button" aria-label="切換語言 / Switch language">
-    <span data-lang="en">EN</span><span class="sep" aria-hidden="true">/</span><span data-lang="zh" lang="zh">中</span>
+    <span class="idx" aria-hidden="true">06</span><span data-lang="en">EN</span><span class="sep" aria-hidden="true">/</span><span data-lang="zh" lang="zh">中</span>
   </button>
 </nav>
 
@@ -982,8 +1012,7 @@
           <span class="eyebrow" aria-hidden="true" data-i18n="about.eyebrow">關於</span>
           <span class="about-kicker" aria-hidden="true"></span>
           <p class="about-lead d1" data-i18n-html="about.lead">
-            我打造能<span class="hl"><em>觀看</em></span>的機器&mdash;&mdash;再打造讓人們
-            <span class="hl"><em>使用</em></span>它們的網頁。
+            我打造能<em>看見</em>的機器、能<em>創造</em>的工具，以及人們真正<em>使用</em>的介面。
           </p>
           <p class="about-body d2" data-i18n-html="about.body1">
             我是 <strong>Andrian Wu</strong>，一位 AI 與電腦視覺工程師，將物件偵測、OCR、
@@ -1326,7 +1355,7 @@
       "hero.getInTouch":"Get in touch",
       "hero.caption":"Live point-cloud — move your cursor to focus the reconstruction",
       "about.h2":"About","about.eyebrow":"About",
-      "about.lead":"I build machines that <span class=\"hl\"><em>see</em></span> — then I build the web where people <span class=\"hl\"><em>use</em></span> them.",
+      "about.lead":"I build machines that <em>see</em>, tools that <em>create</em>, and interfaces people <em>use</em>.",
       "about.body1":"I’m <strong>Andrian Wu</strong>, an AI &amp; computer-vision engineer who turns detection, OCR, image-enhancement and 3D-reconstruction problems into deployable systems — most recently <strong>Moneta</strong>, a multi-currency finance app. My work runs from research and modeling through to the interface a person actually touches.",
       "about.body2":"Trilingual with basic Japanese, based in Tainan, and equally at home in a training loop or a component tree.",
       "about.sig":"Research → Production",
@@ -1380,7 +1409,7 @@
       "hero.getInTouch":"與我聯絡",
       "hero.caption":"即時點雲——移動游標以聚焦重建",
       "about.h2":"關於","about.eyebrow":"關於",
-      "about.lead":"我打造能<span class=\"hl\"><em>觀看</em></span>的機器——再打造讓人們<span class=\"hl\"><em>使用</em></span>它們的網頁。",
+      "about.lead":"我打造能<em>看見</em>的機器、能<em>創造</em>的工具，以及人們真正<em>使用</em>的介面。",
       "about.body1":"我是 <strong>Andrian Wu</strong>，一位 AI 與電腦視覺工程師，將物件偵測、OCR、影像增強與 3D 重建問題轉化為可部署的系統——最近的作品是<strong>Moneta</strong>，一款多幣別理財應用程式。我的工作橫跨研究、建模，一路到使用者真正接觸的介面。",
       "about.body2":"通曉三種語言並具備基礎日語，定居台南，在訓練迴圈與元件樹裡同樣自在。",
       "about.sig":"研究 → 產品上線",
