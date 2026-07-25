@@ -283,10 +283,10 @@
   /* menu variant — reads as a numbered big-serif menu row (see overlay rules below) */
   .lang-toggle.lang-toggle--menu{
     align-self:flex-start; display:block; width:auto;
-    margin-top:0; padding-block:6px; min-height:44px;
+    margin-top:0; padding:0;
     background:none; border:0; border-radius:0;
-    font-family:var(--ff-display); font-size:clamp(29px,7.6vw,48px);
-    letter-spacing:0; line-height:1.2; white-space:nowrap;
+    font-family:var(--ff-display);
+    letter-spacing:0; white-space:nowrap;
     color:var(--stage-ivory);
   }
   .lang-toggle--menu .sep{ margin:0 0.14em; }
@@ -334,15 +334,24 @@
   .menu-cv-trigger,
   .lang-toggle.lang-toggle--menu{
     font-family:var(--ff-display); color:var(--stage-ivory); line-height:1.2;
+    /* ONE shared size for all six rows → a perfectly even numbered column; the
+       super-script indices then line up naturally. Cap 60px keeps the big look
+       on tablet; the min/vw keep "Download CV" (the longest label, + its index
+       + caret) on ONE line down to ~360px. */
+    font-size:clamp(30px,9.2vw,60px);
+    /* uniform tap-target floor on ALL six rows (not asymmetric padding) so the
+       row rhythm is identical top to bottom */
+    min-height:44px;
     opacity:0; transform:translateY(28px);
     transition:opacity .6s var(--ease), transform .7s var(--ease-soft), color .35s var(--ease);
   }
-  .menu-overlay > a{ font-size:clamp(34px,11vw,60px); }
   .menu-overlay > a .idx,
   .menu-cv-trigger .idx,
   .lang-toggle--menu .idx{
     font-family:var(--ff-sans); font-size:13px; color:var(--accent-2);
     vertical-align:super; margin-right:14px; letter-spacing:0.02em;
+    /* equal-advance digits so every label column starts at the same x */
+    font-variant-numeric:tabular-nums;
   }
   .menu-overlay > a:hover,.menu-overlay > a:focus-visible,
   .menu-cv-trigger:hover,.menu-cv-trigger:focus-visible{ color:var(--accent-2); }
@@ -357,14 +366,15 @@
   body.menu-open .menu-cv-trigger{ transition-delay:.32s; }
   body.menu-open .lang-toggle.lang-toggle--menu{ transition-delay:.38s; }
 
-  /* mobile-menu CV item (05) → inline language expander. Sized a step down from
-     the links + white-space:nowrap so "Download CV" / 下載履歷 always stays ONE
-     line at 360–1024px, keeping every row visually symmetric. */
+  /* mobile-menu CV item (05) → inline language expander. Shares the overlay's
+     one font-size/min-height rhythm (above); white-space:nowrap keeps
+     "Download CV" / 下載履歷 on ONE line at 360–1024px so every row stays
+     visually symmetric. */
   .menu-cv{ display:flex; flex-direction:column; }
   .menu-cv-trigger{
     display:block; width:auto; align-self:flex-start;
-    background:none; border:0; padding-block:6px; margin:0; min-height:44px; cursor:pointer; text-align:left;
-    font-size:clamp(29px,7.6vw,48px); white-space:nowrap;
+    background:none; border:0; padding:0; margin:0; cursor:pointer; text-align:left;
+    white-space:nowrap;
   }
   .menu-cv-caret{ display:inline-block; margin-left:16px; color:var(--accent-2); transition:transform .4s var(--ease-soft); }
   .menu-cv-caret svg{ width:24px; height:24px; vertical-align:-0.1em; }
@@ -1012,7 +1022,7 @@
           <span class="eyebrow" aria-hidden="true" data-i18n="about.eyebrow">關於</span>
           <span class="about-kicker" aria-hidden="true"></span>
           <p class="about-lead d1" data-i18n-html="about.lead">
-            我打造能<em>看見</em>的機器、能<em>創造</em>的工具，以及人們真正<em>使用</em>的介面。
+            我打造能<em>視覺化</em>的機器、能<em>創造</em>的工具，以及能<em>運作</em>的介面。
           </p>
           <p class="about-body d2" data-i18n-html="about.body1">
             我是 <strong>Andrian Wu</strong>，一位 AI 與電腦視覺工程師，將物件偵測、OCR、
@@ -1355,7 +1365,7 @@
       "hero.getInTouch":"Get in touch",
       "hero.caption":"Live point-cloud — move your cursor to focus the reconstruction",
       "about.h2":"About","about.eyebrow":"About",
-      "about.lead":"I build machines that <em>see</em>, tools that <em>create</em>, and interfaces people <em>use</em>.",
+      "about.lead":"I build machines that <em>visualize</em>, tools that <em>create</em>, and interfaces that <em>function</em>.",
       "about.body1":"I’m <strong>Andrian Wu</strong>, an AI &amp; computer-vision engineer who turns detection, OCR, image-enhancement and 3D-reconstruction problems into deployable systems — most recently <strong>Moneta</strong>, a multi-currency finance app. My work runs from research and modeling through to the interface a person actually touches.",
       "about.body2":"Trilingual with basic Japanese, based in Tainan, and equally at home in a training loop or a component tree.",
       "about.sig":"Research → Production",
@@ -1409,7 +1419,7 @@
       "hero.getInTouch":"與我聯絡",
       "hero.caption":"即時點雲——移動游標以聚焦重建",
       "about.h2":"關於","about.eyebrow":"關於",
-      "about.lead":"我打造能<em>看見</em>的機器、能<em>創造</em>的工具，以及人們真正<em>使用</em>的介面。",
+      "about.lead":"我打造能<em>視覺化</em>的機器、能<em>創造</em>的工具，以及能<em>運作</em>的介面。",
       "about.body1":"我是 <strong>Andrian Wu</strong>，一位 AI 與電腦視覺工程師，將物件偵測、OCR、影像增強與 3D 重建問題轉化為可部署的系統——最近的作品是<strong>Moneta</strong>，一款多幣別理財應用程式。我的工作橫跨研究、建模，一路到使用者真正接觸的介面。",
       "about.body2":"通曉三種語言並具備基礎日語，定居台南，在訓練迴圈與元件樹裡同樣自在。",
       "about.sig":"研究 → 產品上線",
