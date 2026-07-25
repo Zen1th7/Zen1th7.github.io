@@ -740,18 +740,6 @@
   }
   .portrait-media{ position:absolute; inset:0; will-change:transform; }
   .portrait-media img{ width:100%; height:100%; object-fit:cover; }
-  .portrait-cred{                         /* floating credential caption */
-    position:absolute; z-index:4; right:-14px; top:44px;
-    padding:12px 16px; border-radius:15px; text-align:right;
-    background:rgba(23,19,13,0.62); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
-    border:1px solid rgba(237,227,208,0.16); color:var(--stage-ivory);
-    box-shadow:0 20px 46px -26px rgba(0,0,0,0.7);
-    transform:translateY(10px); opacity:0;
-    transition:opacity .8s var(--ease) .3s, transform .9s var(--ease-soft) .3s;
-  }
-  .reveal.in .portrait-cred{ opacity:1; transform:none; }
-  .portrait-cred b{ display:block; font-family:var(--ff-display); font-size:26px; line-height:1; color:var(--accent-2); }
-  .portrait-cred span{ display:block; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(237,227,208,0.66); margin-top:6px; }
 
   /* FACTS → refined indexed stat strip */
   .facts{ margin-top:64px; }
@@ -833,7 +821,6 @@
   }
 
   @media (max-width:720px){
-    .portrait-cred{ right:8px; top:auto; bottom:64px; }
     /* experience: stack date above the role, keep the flat hairline rhythm */
     .xp-row{ grid-template-columns:1fr; gap:6px; padding:26px 4px; }
     .xp-date{ white-space:normal; }
@@ -1050,9 +1037,6 @@
                 <circle cx="18" cy="42" r="1.3"/><circle cx="40" cy="42" r="1.3"/>
               </svg>
             </span>
-            <div class="portrait-cred" aria-hidden="true">
-              <b>CV</b><span data-i18n="about.cred">+ 前端</span>
-            </div>
             <div class="portrait-shell">
               <div class="portrait-core">
                 <div class="portrait-media" data-parallax-img>
@@ -1369,7 +1353,6 @@
       "about.body1":"I’m <strong>Andrian Wu</strong>, an AI &amp; computer-vision engineer who turns detection, OCR, image-enhancement and 3D-reconstruction problems into deployable systems — most recently <strong>Moneta</strong>, a multi-currency finance app. My work runs from research and modeling through to the interface a person actually touches.",
       "about.body2":"Trilingual with basic Japanese, based in Tainan, and equally at home in a training loop or a component tree.",
       "about.sig":"Research → Production",
-      "about.cred":"+ Front-End",
       "about.portraitAlt":"Portrait of Andrian Wu",
       "facts.focus.dt":"Focus","facts.focus.dd":"AI · CV · Front-End",
       "facts.loc.dt":"Location","facts.loc.dd":"Tainan, Taiwan",
@@ -1423,7 +1406,6 @@
       "about.body1":"我是 <strong>Andrian Wu</strong>，一位 AI 與電腦視覺工程師，將物件偵測、OCR、影像增強與 3D 重建問題轉化為可部署的系統——最近的作品是<strong>Moneta</strong>，一款多幣別理財應用程式。我的工作橫跨研究、建模，一路到使用者真正接觸的介面。",
       "about.body2":"通曉三種語言並具備基礎日語，定居台南，在訓練迴圈與元件樹裡同樣自在。",
       "about.sig":"研究 → 產品上線",
-      "about.cred":"+ 前端",
       "about.portraitAlt":"Andrian Wu 的肖像",
       "facts.focus.dt":"專長","facts.focus.dd":"AI · 電腦視覺 · 前端",
       "facts.loc.dt":"所在地","facts.loc.dd":"台灣台南",
