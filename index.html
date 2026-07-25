@@ -198,7 +198,9 @@
     display:flex; align-items:baseline; gap:2px; white-space:nowrap;
     padding-right:14px;
   }
-  .brand .tri{ color:var(--accent-2); font-size:15px; transform:translateY(-1px); }
+  /* △ stands in for the capital "A": sized to the wordmark cap-height and
+     nudged onto the baseline so "△ndrian Wu" reads as one clean "Andrian Wu". */
+  .brand .tri{ color:var(--accent-2); font-size:1.04em; line-height:1; transform:translateY(0.055em); margin-right:0.01em; }
   .nav-links{
     display:flex; align-items:center; gap:4px;
     border-left:1px solid rgba(237,227,208,0.14);
@@ -227,6 +229,29 @@
   .nav-cta:hover{ background:#EEA157; }
   .nav-cta:hover .knob{ transform:translate(2px,-1px) scale(1.06); }
   .nav-cta:active{ transform:scale(.97); }
+
+  /* ---------- CV language chooser (nav popover) ---------- */
+  .cv-menu{ position:relative; display:inline-flex; }
+  /* .nav-cta is now a <button> trigger — reset native button chrome */
+  .cv-menu > .nav-cta{ border:0; cursor:pointer; font-family:var(--ff-sans); }
+  .cv-pop{
+    position:absolute; top:calc(100% + 12px); right:0; z-index:90;
+    min-width:224px; display:flex; flex-direction:column; gap:2px; padding:7px;
+    background:rgba(24,19,12,0.94);
+    -webkit-backdrop-filter:blur(18px) saturate(1.4); backdrop-filter:blur(18px) saturate(1.4);
+    border:1px solid rgba(237,227,208,0.16); border-radius:16px;
+    box-shadow:0 24px 60px -24px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06);
+    opacity:0; visibility:hidden; transform:translateY(-8px) scale(0.98); transform-origin:top right;
+    transition:opacity .32s var(--ease), transform .4s var(--ease-soft), visibility .32s var(--ease);
+  }
+  .cv-menu.open .cv-pop{ opacity:1; visibility:visible; transform:none; }
+  .cv-menu.open > .nav-cta .knob{ transform:translate(2px,-1px) scale(1.06); }
+  .cv-opt{
+    display:flex; align-items:center; gap:10px; min-height:44px; padding:13px 16px; border-radius:11px;
+    color:rgba(237,227,208,0.86); font-size:13.5px; font-weight:500; white-space:nowrap; line-height:1.3;
+    transition:background .3s var(--ease), color .3s var(--ease);
+  }
+  .cv-opt:hover,.cv-opt:focus-visible{ background:rgba(237,227,208,0.10); color:var(--stage-ivory); }
 
   /* ---------- language toggle (EN / 中) ---------- */
   .lang-toggle{
@@ -300,6 +325,32 @@
   body.menu-open .menu-overlay a:nth-child(3){ transition-delay:.20s; }
   body.menu-open .menu-overlay a:nth-child(4){ transition-delay:.26s; }
   body.menu-open .menu-overlay a:nth-child(5){ transition-delay:.32s; }
+
+  /* mobile-menu CV item → inline language expander (matches overlay type) */
+  .menu-cv{ display:flex; flex-direction:column; }
+  .menu-cv-trigger{
+    display:inline-flex; align-items:center; align-self:flex-start;
+    background:none; border:0; padding:0; cursor:pointer; text-align:left;
+    font-family:var(--ff-display); font-size:clamp(34px,11vw,60px);
+    color:var(--stage-ivory); line-height:1.2;
+  }
+  .menu-cv-trigger .idx{ font-family:var(--ff-sans); font-size:13px; color:var(--accent-2); vertical-align:super; margin-right:12px; }
+  .menu-cv-caret{ display:inline-flex; margin-left:16px; color:var(--accent-2); transition:transform .4s var(--ease-soft); }
+  .menu-cv-caret svg{ width:26px; height:26px; }
+  .menu-cv.open .menu-cv-caret{ transform:rotate(180deg); }
+  .menu-cv-opts{
+    display:flex; flex-direction:column; overflow:hidden;
+    max-height:0; opacity:0; visibility:hidden; padding-left:34px;
+    transition:max-height .45s var(--ease-soft), opacity .4s var(--ease), visibility .45s var(--ease), margin-top .45s var(--ease-soft);
+  }
+  .menu-cv.open .menu-cv-opts{ max-height:180px; opacity:1; visibility:visible; margin-top:8px; }
+  /* raised specificity so these beat the overlay's huge-serif `.menu-overlay a` */
+  .menu-overlay .menu-cv-opt{
+    display:block; font-family:var(--ff-sans); font-size:20px; line-height:1.25; letter-spacing:0;
+    color:rgba(237,227,208,0.82); padding:11px 0; white-space:nowrap;
+    transition:color .3s var(--ease);
+  }
+  .menu-overlay .menu-cv-opt:hover,.menu-overlay .menu-cv-opt:focus-visible{ color:var(--accent-2); }
 
   /* ---------- HERO : the showpiece stage ---------- */
   .hero{
@@ -755,9 +806,13 @@
   /* burger persists through the whole tablet/iPad range; full nav is desktop-only */
   @media (max-width:1024px){
     .nav-links{ display:none; }
-    .nav-cta{ display:none; }
+    .cv-menu{ display:none; }            /* CV chooser moves into the mobile overlay */
     .burger{ display:block; }
     .nav-pill{ padding:8px 8px 8px 20px; }
+    /* Symmetric top bar: brand pill flush-left, burger flush-right, both
+       vertically centred and the same height, with even side gutters. */
+    header.nav{ justify-content:space-between; align-items:center; }
+    .burger{ width:50px; height:50px; }
   }
   @media (max-width:960px){
     .about-grid{ grid-template-columns:1fr; gap:44px; }
@@ -784,6 +839,25 @@
   @media (max-width:400px){
     body{ font-size:16px; }
     .proj-link span{ display:none; }
+  }
+
+  /* SHORT VIEWPORTS (landscape phones, laptops at 720–800px tall): the full
+     hero column (eyebrow → headline → sub → CTAs → caption) is taller than the
+     viewport — most in 繁中 and the 4-line English headline — which pushed the
+     CTAs + caption below the fold. Compact the headline scale, line-height and
+     hero padding so the whole hero fits on first paint with no scroll. Scoped to
+     >=721px so narrow mobile-portrait (which already fits) keeps its larger type. */
+  @media (min-width:721px) and (max-height:800px){
+    .hero-content{ padding-top:clamp(74px,11vh,104px); padding-bottom:clamp(20px,3.5vh,44px); }
+    .hero-eyebrow{ margin-bottom:12px; }
+    .hero h1{ font-size:clamp(36px,5.2vw,66px); line-height:1.0; margin-bottom:12px; }
+    .hero-sub{ font-size:clamp(14px,1.4vw,16px); line-height:1.5; max-width:44ch; }
+    .hero-foot{ margin-top:20px; }
+  }
+  @media (min-width:721px) and (max-height:640px){
+    .hero-content{ padding-top:clamp(64px,9vh,88px); padding-bottom:16px; }
+    .hero h1{ font-size:clamp(32px,4.4vw,54px); margin-bottom:10px; }
+    .hero-foot{ margin-top:14px; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -813,12 +887,18 @@
     <button class="lang-toggle" data-lang-toggle type="button" aria-label="切換語言 / Switch language">
       <span data-lang="en">EN</span><span class="sep" aria-hidden="true">/</span><span data-lang="zh" lang="zh">中</span>
     </button>
-    <a class="nav-cta" href="cv-andrian-wu-en.pdf" download data-i18n-aria="nav.cvAria" aria-label="下載履歷（英文 PDF）">
-      <span data-i18n="nav.cv">下載履歷</span>
-      <span class="knob" aria-hidden="true">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 20h14"/></svg>
-      </span>
-    </a>
+    <div class="cv-menu" data-cv-menu>
+      <button class="nav-cta" type="button" aria-haspopup="menu" aria-expanded="false" data-cv-trigger data-i18n-aria="nav.cvAria" aria-label="下載履歷 — 選擇語言">
+        <span data-i18n="nav.cv">下載履歷</span>
+        <span class="knob" aria-hidden="true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 20h14"/></svg>
+        </span>
+      </button>
+      <div class="cv-pop" role="menu" data-cv-pop data-i18n-aria="cv.menuAria" aria-label="選擇履歷語言">
+        <a class="cv-opt" role="menuitem" href="cv-andrian-wu-en.pdf" download data-i18n-html="cv.en">英文 / English</a>
+        <a class="cv-opt" role="menuitem" href="cv-andrian-wu-zh.pdf" download data-i18n-html="cv.zh"><span lang="zh">中文（繁體）</span></a>
+      </div>
+    </div>
   </nav>
   <button class="burger" aria-label="開啟選單" aria-expanded="false" aria-controls="menu">
     <span></span><span></span>
@@ -830,7 +910,18 @@
   <a href="#experience"><span class="idx">02</span><span data-i18n="nav.experience">經歷</span></a>
   <a href="#projects"><span class="idx">03</span><span data-i18n="nav.work">作品</span></a>
   <a href="#contact"><span class="idx">04</span><span data-i18n="nav.contact">聯絡</span></a>
-  <a href="cv-andrian-wu-en.pdf" download><span class="idx">05</span><span data-i18n="nav.cv">下載履歷</span></a>
+  <div class="menu-cv" data-cv-menu-m>
+    <button class="menu-cv-trigger" type="button" aria-expanded="false" data-cv-trigger-m>
+      <span class="idx">05</span><span data-i18n="nav.cv">下載履歷</span>
+      <span class="menu-cv-caret" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </span>
+    </button>
+    <div class="menu-cv-opts" data-cv-opts-m>
+      <a class="menu-cv-opt" href="cv-andrian-wu-en.pdf" download data-i18n-html="cv.en">英文 / English</a>
+      <a class="menu-cv-opt" href="cv-andrian-wu-zh.pdf" download data-i18n-html="cv.zh"><span lang="zh">中文（繁體）</span></a>
+    </div>
+  </div>
   <button class="lang-toggle lang-toggle--menu" data-lang-toggle type="button" aria-label="切換語言 / Switch language">
     <span data-lang="en">EN</span><span class="sep" aria-hidden="true">/</span><span data-lang="zh" lang="zh">中</span>
   </button>
@@ -1220,7 +1311,8 @@
     en: {
       "skip":"Skip to content",
       "nav.about":"About","nav.experience":"Experience","nav.work":"Work","nav.contact":"Contact",
-      "nav.cv":"Download CV","nav.cvAria":"Download CV (English PDF)",
+      "nav.cv":"Download CV","nav.cvAria":"Download CV — choose language",
+      "cv.menuAria":"Choose CV language","cv.en":"English","cv.zh":"<span lang=\"zh\">中文</span> / Traditional Chinese",
       "menu.open":"Open menu","menu.close":"Close menu",
       "lang.toggle":"切換到中文 / Switch to Traditional Chinese",
       "doc.title":"Andrian Wu — AI / Computer Vision Engineer",
@@ -1273,7 +1365,8 @@
     zh: {
       "skip":"跳到主要內容",
       "nav.about":"關於","nav.experience":"經歷","nav.work":"作品","nav.contact":"聯絡",
-      "nav.cv":"下載履歷","nav.cvAria":"下載履歷（英文 PDF）",
+      "nav.cv":"下載履歷","nav.cvAria":"下載履歷 — 選擇語言",
+      "cv.menuAria":"選擇履歷語言","cv.en":"英文 / English","cv.zh":"<span lang=\"zh\">中文（繁體）</span>",
       "menu.open":"開啟選單","menu.close":"關閉選單",
       "lang.toggle":"切換到英文 / Switch to English",
       "doc.title":"Andrian Wu — AI／電腦視覺工程師",
@@ -1432,6 +1525,9 @@
     burger.setAttribute("aria-label", (I18N[currentLang]||I18N.zh)["menu.open"]);
     menu.setAttribute("aria-hidden","true");
     hideBg(false);
+    // collapse the CV language expander so it re-opens closed next time
+    var cvm = document.querySelector("[data-cv-menu-m]");
+    if(cvm){ cvm.classList.remove("open"); var ct = cvm.querySelector("[data-cv-trigger-m]"); if(ct) ct.setAttribute("aria-expanded","false"); }
     burger.focus();                                         // return focus to the trigger
   }
   burger.addEventListener("click", function(){
@@ -1448,6 +1544,67 @@
     if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
     else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
   });
+
+  /* ---------- CV language chooser : nav popover (accessible menu) ---------- */
+  (function(){
+    var wrap = document.querySelector("[data-cv-menu]");
+    if(!wrap) return;
+    var trigger = wrap.querySelector("[data-cv-trigger]");
+    var pop = wrap.querySelector("[data-cv-pop]");
+    var opts = Array.prototype.slice.call(pop.querySelectorAll('[role="menuitem"]'));
+    function onDocClick(e){ if(!wrap.contains(e.target)) closeCv(false); }
+    function openCv(focusTarget){
+      if(!wrap.classList.contains("open")){
+        wrap.classList.add("open");
+        trigger.setAttribute("aria-expanded","true");
+        document.addEventListener("click", onDocClick, true);
+      }
+      if(focusTarget){
+        requestAnimationFrame(function(){
+          var el = focusTarget === "last" ? opts[opts.length-1] : opts[0];
+          if(el) el.focus();
+        });
+      }
+    }
+    function closeCv(returnFocus){
+      if(!wrap.classList.contains("open")) return;
+      wrap.classList.remove("open");
+      trigger.setAttribute("aria-expanded","false");
+      document.removeEventListener("click", onDocClick, true);
+      if(returnFocus) trigger.focus();
+    }
+    trigger.addEventListener("click", function(e){
+      e.stopPropagation();
+      if(wrap.classList.contains("open")) closeCv(false); else openCv(null);
+    });
+    trigger.addEventListener("keydown", function(e){
+      if(e.key === "ArrowDown"){ e.preventDefault(); openCv("first"); }
+      else if(e.key === "ArrowUp"){ e.preventDefault(); openCv("last"); }
+      else if(e.key === "Escape"){ closeCv(false); }
+    });
+    pop.addEventListener("keydown", function(e){
+      var i = opts.indexOf(document.activeElement);
+      if(e.key === "Escape"){ e.preventDefault(); closeCv(true); }
+      else if(e.key === "ArrowDown"){ e.preventDefault(); opts[(i+1)%opts.length].focus(); }
+      else if(e.key === "ArrowUp"){ e.preventDefault(); opts[(i-1+opts.length)%opts.length].focus(); }
+      else if(e.key === "Home"){ e.preventDefault(); opts[0].focus(); }
+      else if(e.key === "End"){ e.preventDefault(); opts[opts.length-1].focus(); }
+      else if(e.key === "Tab"){ closeCv(false); }   // let focus flow out; don't strand the popover open
+    });
+    opts.forEach(function(o){ o.addEventListener("click", function(){ closeCv(false); }); });
+  })();
+
+  /* ---------- CV language chooser : mobile-overlay inline expander ---------- */
+  (function(){
+    var m = document.querySelector("[data-cv-menu-m]");
+    if(!m) return;
+    var trig = m.querySelector("[data-cv-trigger-m]");
+    trig.addEventListener("click", function(){
+      var open = !m.classList.contains("open");
+      m.classList.toggle("open", open);
+      trig.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  })();
 
   /* ---------- scroll reveals ---------- */
   var revealEls = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
