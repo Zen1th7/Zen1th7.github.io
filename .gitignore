@@ -10,6 +10,18 @@ Andrian CV.pdf
 Andrian CV chinese.pdf
 # Design-exploration drafts
 mockup/
+# Discarded "Studio Soft" design-exploration screenshots
+soft-*.jpeg
+soft-*.jpg
+# Unused 2024 alternate headshot (live site uses images/174322.jpg)
+images/174321.jpg
+
+# ─── Ad-hoc verification screenshots (keep the deployable og-image.png) ───
+/vf-*.png
+/menu-*.png
+/align-*.png
+/about-final-*.png
+/overlay-*.png
 
 # ─── Tooling / OS / temp ──────────────────────────────────────
 .playwright-mcp/
